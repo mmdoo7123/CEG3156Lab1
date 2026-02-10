@@ -1,0 +1,31 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+ENTITY genericMux2to1 IS
+    GENERIC (
+        n : integer := 8 -- Default width is 8 bits, can be overridden for any size
+    );
+    PORT(
+        i_A, i_B : IN  STD_LOGIC_VECTOR(n-1 downto 0);
+        i_Sel    : IN  STD_LOGIC; -- Select signal (0 picks A, 1 picks B)
+        o_Out    : OUT STD_LOGIC_VECTOR(n-1 downto 0)
+    );
+END genericMux2to1;
+ARCHITECTURE structural OF genericMux2to1 IS
+    COMPONENT oneBitMux2to1
+    PORT(
+        i_A, i_B : IN  STD_LOGIC;
+        i_Sel    : IN  STD_LOGIC;
+        o_Out    : OUT STD_LOGIC
+    );
+    END COMPONENT;
+BEGIN
+    gen_mux: FOR i IN n-1 DOWNTO 0 GENERATE
+        mux_inst: oneBitMux2to1
+            PORT MAP (
+                i_A   => i_A(i),
+                i_B   => i_B(i),
+                i_Sel => i_Sel,
+                o_Out => o_Out(i)
+            );
+    END GENERATE;
+END structural;

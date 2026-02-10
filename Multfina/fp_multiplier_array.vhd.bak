@@ -1,0 +1,87 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY fp_multiplier_array IS
+    PORT(
+        i_Mx, i_My : IN  STD_LOGIC_VECTOR(7 DOWNTO 0); -- 8-bit mantissas from registers
+        o_Mz       : OUT STD_LOGIC_VECTOR(17 DOWNTO 0); -- 18-bit product
+        o_bad8     : OUT STD_LOGIC                      -- Normalization flag
+    );
+END fp_multiplier_array;
+
+ARCHITECTURE structural OF fp_multiplier_array IS
+
+    -- Component declaration for your provided genericAdder
+    COMPONENT genericAdder IS
+        GENERIC ( n : integer := 8 );
+        PORT(
+            i_Ai, i_Bi : IN  STD_LOGIC_VECTOR(n-1 DOWNTO 0);
+            i_CarryIn  : IN  STD_LOGIC;
+            o_Sum      : OUT STD_LOGIC_VECTOR(n-1 DOWNTO 0);
+            o_CarryOut : OUT STD_LOGIC
+        );
+    END COMPONENT;
+
+    -- Internal signals
+    SIGNAL val_x, val_y : STD_LOGIC_VECTOR(8 DOWNTO 0); -- 9-bit with implicit '1' [cite: 99]
+    
+    -- Array of partial products
+    TYPE pp_array IS ARRAY (0 TO 8) OF STD_LOGIC_VECTOR(8 DOWNTO 0);
+    SIGNAL pp : pp_array;
+
+    -- Intermediate sums and carries for the adder chain
+    TYPE sum_array IS ARRAY (0 TO 7) OF STD_LOGIC_VECTOR(9 DOWNTO 0);
+    SIGNAL row_sum : sum_array;
+    SIGNAL row_cout : STD_LOGIC_VECTOR(7 DOWNTO 0);
+
+BEGIN
+    -- 1. Add implicit leading bit [cite: 99]
+    val_x <= '1' & i_Mx;
+    val_y <= '1' & i_My;
+
+    -- 2. Generate Partial Products
+    gen_pp: FOR i IN 0 TO 8 GENERATE
+        gen_bits: FOR j IN 0 TO 8 GENERATE
+            pp(i)(j) <= val_x(j) AND val_y(i);
+        END GENERATE;
+    END GENERATE;
+
+    -- 3. Initial connection for the Product LSB
+    o_Mz(0) <= pp(0)(0);
+
+    -- 4. First Adder Row: Adds PP0(8..1) and PP1(8..0)
+    -- Using n=10 to account for the carry and alignment
+    row0: genericAdder 
+        GENERIC MAP ( n => 10 )
+        PORT MAP (
+            i_Ai      => '0' & '0' & pp(0)(8 DOWNTO 1),
+            i_Bi      => '0' & pp(1),
+            i_CarryIn => '0',
+            o_Sum     => row_sum(0),
+            o_CarryOut=> row_cout(0)
+        );
+    o_Mz(1) <= row_sum(0)(0);
+
+    -- 5. Subsequent Adder Rows (1 to 7)
+    gen_rows: FOR i IN 1 TO 7 GENERATE
+        row_inst: genericAdder
+            GENERIC MAP ( n => 10 )
+            PORT MAP (
+                i_Ai      => row_cout(i-1) & row_sum(i-1)(9 DOWNTO 1),
+                i_Bi      => '0' & pp(i+1),
+                i_CarryIn => '0',
+                o_Sum     => row_sum(i),
+                o_CarryOut=> row_cout(i)
+            );
+        o_Mz(i+1) <= row_sum(i)(0);
+    END GENERATE;
+
+    -- 6. Collect final product bits
+    o_Mz(16 DOWNTO 9) <= row_sum(7)(8 DOWNTO 1);
+    o_Mz(17)          <= row_cout(7); -- Final MSB for normalization
+
+    -- 7. Normalization Flag (bad8)
+    -- Driven by the MSB of the 18-bit product
+    o_bad8 <= row_cout(7);
+
+END structural;

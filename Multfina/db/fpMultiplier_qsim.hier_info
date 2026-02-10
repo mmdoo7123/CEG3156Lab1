@@ -1,0 +1,149 @@
+|exp_counter7
+clk => reg_q[0].CLK
+clk => reg_q[1].CLK
+clk => reg_q[2].CLK
+clk => reg_q[3].CLK
+clk => reg_q[4].CLK
+clk => reg_q[5].CLK
+clk => reg_q[6].CLK
+resetBar => reg_q~14.OUTPUTSELECT
+resetBar => reg_q~15.OUTPUTSELECT
+resetBar => reg_q~16.OUTPUTSELECT
+resetBar => reg_q~17.OUTPUTSELECT
+resetBar => reg_q~18.OUTPUTSELECT
+resetBar => reg_q~19.OUTPUTSELECT
+resetBar => reg_q~20.OUTPUTSELECT
+i_load7 => reg_q~7.OUTPUTSELECT
+i_load7 => reg_q~8.OUTPUTSELECT
+i_load7 => reg_q~9.OUTPUTSELECT
+i_load7 => reg_q~10.OUTPUTSELECT
+i_load7 => reg_q~11.OUTPUTSELECT
+i_load7 => reg_q~12.OUTPUTSELECT
+i_load7 => reg_q~13.OUTPUTSELECT
+i_inc1 => reg_q~0.OUTPUTSELECT
+i_inc1 => reg_q~1.OUTPUTSELECT
+i_inc1 => reg_q~2.OUTPUTSELECT
+i_inc1 => reg_q~3.OUTPUTSELECT
+i_inc1 => reg_q~4.OUTPUTSELECT
+i_inc1 => reg_q~5.OUTPUTSELECT
+i_inc1 => reg_q~6.OUTPUTSELECT
+i_data[0] => reg_q~13.DATAB
+i_data[1] => reg_q~12.DATAB
+i_data[2] => reg_q~11.DATAB
+i_data[3] => reg_q~10.DATAB
+i_data[4] => reg_q~9.DATAB
+i_data[5] => reg_q~8.DATAB
+i_data[6] => reg_q~7.DATAB
+o_done <= <GND>
+o_REz[0] <= reg_q[0].DB_MAX_OUTPUT_PORT_TYPE
+o_REz[1] <= reg_q[1].DB_MAX_OUTPUT_PORT_TYPE
+o_REz[2] <= reg_q[2].DB_MAX_OUTPUT_PORT_TYPE
+o_REz[3] <= reg_q[3].DB_MAX_OUTPUT_PORT_TYPE
+o_REz[4] <= reg_q[4].DB_MAX_OUTPUT_PORT_TYPE
+o_REz[5] <= reg_q[5].DB_MAX_OUTPUT_PORT_TYPE
+o_REz[6] <= reg_q[6].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|exp_counter7|genericAdder:u_inc
+i_Ai[0] => oneBitAdder:add0.i_Ai
+i_Ai[1] => oneBitAdder:gen_adder:1:add_inst.i_Ai
+i_Ai[2] => oneBitAdder:gen_adder:2:add_inst.i_Ai
+i_Ai[3] => oneBitAdder:gen_adder:3:add_inst.i_Ai
+i_Ai[4] => oneBitAdder:gen_adder:4:add_inst.i_Ai
+i_Ai[5] => oneBitAdder:gen_adder:5:add_inst.i_Ai
+i_Ai[6] => oneBitAdder:gen_adder:6:add_inst.i_Ai
+i_Bi[0] => oneBitAdder:add0.i_Bi
+i_Bi[1] => oneBitAdder:gen_adder:1:add_inst.i_Bi
+i_Bi[2] => oneBitAdder:gen_adder:2:add_inst.i_Bi
+i_Bi[3] => oneBitAdder:gen_adder:3:add_inst.i_Bi
+i_Bi[4] => oneBitAdder:gen_adder:4:add_inst.i_Bi
+i_Bi[5] => oneBitAdder:gen_adder:5:add_inst.i_Bi
+i_Bi[6] => oneBitAdder:gen_adder:6:add_inst.i_Bi
+i_CarryIn => oneBitAdder:add0.i_CarryIn
+o_Sum[0] <= oneBitAdder:add0.o_Sum
+o_Sum[1] <= oneBitAdder:gen_adder:1:add_inst.o_Sum
+o_Sum[2] <= oneBitAdder:gen_adder:2:add_inst.o_Sum
+o_Sum[3] <= oneBitAdder:gen_adder:3:add_inst.o_Sum
+o_Sum[4] <= oneBitAdder:gen_adder:4:add_inst.o_Sum
+o_Sum[5] <= oneBitAdder:gen_adder:5:add_inst.o_Sum
+o_Sum[6] <= oneBitAdder:gen_adder:6:add_inst.o_Sum
+o_CarryOut <= oneBitAdder:gen_adder:6:add_inst.o_CarryOut
+
+
+|exp_counter7|genericAdder:u_inc|oneBitAdder:add0
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum~0.IN1
+o_Sum <= o_Sum~0.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut~0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|exp_counter7|genericAdder:u_inc|oneBitAdder:\gen_adder:1:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum~0.IN1
+o_Sum <= o_Sum~0.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut~0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|exp_counter7|genericAdder:u_inc|oneBitAdder:\gen_adder:2:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum~0.IN1
+o_Sum <= o_Sum~0.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut~0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|exp_counter7|genericAdder:u_inc|oneBitAdder:\gen_adder:3:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum~0.IN1
+o_Sum <= o_Sum~0.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut~0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|exp_counter7|genericAdder:u_inc|oneBitAdder:\gen_adder:4:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum~0.IN1
+o_Sum <= o_Sum~0.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut~0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|exp_counter7|genericAdder:u_inc|oneBitAdder:\gen_adder:5:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum~0.IN1
+o_Sum <= o_Sum~0.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut~0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|exp_counter7|genericAdder:u_inc|oneBitAdder:\gen_adder:6:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum~0.IN1
+o_Sum <= o_Sum~0.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut~0.DB_MAX_OUTPUT_PORT_TYPE
+
+

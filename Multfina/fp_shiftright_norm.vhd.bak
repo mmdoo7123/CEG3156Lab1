@@ -1,0 +1,56 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+-- ShiftRight / Normalization unit for 18-bit mantissa product (9x9)
+ENTITY fp_shiftright_norm IS
+    PORT(
+        clk     : IN  STD_LOGIC;
+        reset   : IN  STD_LOGIC;
+
+        i_load9 : IN  STD_LOGIC;                        -- load 18-bit product into reg
+        i_SHR8  : IN  STD_LOGIC;                        -- 1 => normalization shift select
+
+        i_Mz    : IN  STD_LOGIC_VECTOR(17 DOWNTO 0);    -- 18-bit product from multiplier
+        o_RMz   : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)      -- final 8-bit mantissa (fraction field)
+    );
+END fp_shiftright_norm;
+
+ARCHITECTURE structural OF fp_shiftright_norm IS
+
+    SIGNAL reg_mz  : STD_LOGIC_VECTOR(17 DOWNTO 0);     -- internal 18-bit register
+    SIGNAL mux_out : STD_LOGIC_VECTOR(7 DOWNTO 0);      -- selected 8 bits
+
+BEGIN
+
+    -------------------------------------------------------------------------
+    -- 18-bit storage register (DFF-based, synchronous reset)
+    -------------------------------------------------------------------------
+    p_reg : PROCESS(clk)
+    BEGIN
+        IF rising_edge(clk) THEN
+            IF reset = '1' THEN
+                reg_mz <= (OTHERS => '0');
+
+            ELSIF i_load9 = '1' THEN
+                reg_mz <= i_Mz;
+
+            ELSE
+                reg_mz <= reg_mz; -- hold (optional)
+            END IF;
+        END IF;
+    END PROCESS;
+
+    -------------------------------------------------------------------------
+    -- Structural mux (no loop-based shifting)
+    -- i_SHR8 = 1 => normalization required: take (16 downto 9)
+    -- i_SHR8 = 0 => already normalized:     take (15 downto 8)
+    -------------------------------------------------------------------------
+    mux_out <= reg_mz(16 DOWNTO 9) WHEN i_SHR8 = '1'
+               ELSE reg_mz(15 DOWNTO 8);
+
+    -------------------------------------------------------------------------
+    -- Output
+    -------------------------------------------------------------------------
+    o_RMz <= mux_out;
+
+END structural;

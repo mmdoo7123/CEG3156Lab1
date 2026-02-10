@@ -1,0 +1,40 @@
+# do fpMultiplier.do 
+# ** Warning: (vlib-34) Library already exists at "work".
+# 
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module toplevelmMULT
+# 
+# Top level modules:
+# 	toplevelmMULT
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module toplevelmMULT_vlg_sample_tst
+# -- Compiling module toplevelmMULT_vlg_check_tst
+# -- Compiling module toplevelmMULT_vlg_vec_tst
+# 
+# Top level modules:
+# 	toplevelmMULT_vlg_vec_tst
+# vsim -L cycloneive_ver -L altera_ver -L altera_mf_ver -L 220model_ver -L sgate -c -t 1ps -novopt work.toplevelmMULT_vlg_vec_tst 
+# Loading work.toplevelmMULT_vlg_vec_tst
+# Loading work.toplevelmMULT
+# Loading cycloneive_ver.cycloneive_lcell_comb
+# Loading altera_ver.dffeas
+# Loading cycloneive_ver.cycloneive_io_ibuf
+# Loading cycloneive_ver.cycloneive_io_obuf
+# Loading cycloneive_ver.cycloneive_clkctrl
+# Loading cycloneive_ver.cycloneive_mux41
+# Loading cycloneive_ver.cycloneive_ena_reg
+# Loading work.toplevelmMULT_vlg_sample_tst
+# Loading work.toplevelmMULT_vlg_check_tst
+# Loading altera_ver.PRIM_GDFF_LOW
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: mzour085  Hostname: 1850-19RDSH2  ProcessID: 5784
+# 
+#           Attempting to use alternate WLF file "./wlftb34677".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlftb34677
+# 
+# Simulation passed !
+# ** Note: $finish    : fpMultiplier.vt(615)
+#    Time: 1 us  Iteration: 0  Instance: /toplevelmMULT_vlg_vec_tst/tb_out

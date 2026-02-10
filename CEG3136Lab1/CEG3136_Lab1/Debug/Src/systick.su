@@ -1,0 +1,6 @@
+../Src/systick.c:12:6:StartSysTick	4	static
+../Src/systick.c:22:6:SysTick_Handler	4	static
+../Src/systick.c:26:6:WaitForSysTick	16	static,ignoring_inline_asm
+../Src/systick.c:33:6:msDelay	24	static
+../Src/systick.c:38:8:TimeNow	4	static
+../Src/systick.c:42:8:TimePassed	24	static

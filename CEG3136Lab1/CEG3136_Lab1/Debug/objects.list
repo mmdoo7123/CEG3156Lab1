@@ -1,0 +1,7 @@
+"./Inc/debug.o"
+"./Src/gpio.o"
+"./Src/main.o"
+"./Src/syscalls.o"
+"./Src/sysmem.o"
+"./Src/systick.o"
+"./Startup/startup_stm32l552zetxq.o"

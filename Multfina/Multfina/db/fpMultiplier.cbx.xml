@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="fpMultiplier">
+		<CBX_INST_ENTRY INSTANCE_NAME="|toplevelmMULT|lpm_constant3:inst7|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_3e6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|toplevelmMULT|lpm_constant4:inst8|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_3e6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|toplevelmMULT|lpm_constant0:inst1|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_ih6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|toplevelmMULT|lpm_constant0:inst3|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_ih6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|toplevelmMULT|lpm_constant1:inst4|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_uf6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|toplevelmMULT|lpm_constant2:inst5|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_2g6.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

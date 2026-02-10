@@ -1,0 +1,2 @@
+C:/Users/mbrom064/STM32CubeIDE/workspace_1.19.0/CEG3136_Lab1/Drivers/CMSIS/Include/core_cm33.h:2845:26:ITM_SendChar	16	static,ignoring_inline_asm
+../Inc/debug.c:10:5:__io_putchar	16	static

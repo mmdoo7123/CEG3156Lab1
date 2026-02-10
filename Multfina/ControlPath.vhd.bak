@@ -1,0 +1,83 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY ControlPath IS
+    PORT(
+        i_clock           : IN  STD_LOGIC;
+        i_resetBar        : IN  STD_LOGIC;
+        i_normalization   : IN  STD_LOGIC; -- "Normalization needed" from S2
+        i_overflow_under  : IN  STD_LOGIC; -- "Overflow or Underflow" from S2
+        -- Output Control Signals (mapped to the states)
+        o_S0, o_S1, o_S2  : OUT STD_LOGIC;
+        o_S3, o_S4, o_S5  : OUT STD_LOGIC;
+        o_S6              : OUT STD_LOGIC
+    );
+END ControlPath;
+
+ARCHITECTURE structural OF ControlPath IS
+
+    -- Component Declaration for the provided Flip-Flop
+    COMPONENT enARdFF_2 IS
+        PORT(
+            i_resetBar : IN  STD_LOGIC;
+            i_d        : IN  STD_LOGIC;
+            i_enable   : IN  STD_LOGIC;
+            i_clock    : IN  STD_LOGIC;
+            o_q, o_qBar: OUT STD_LOGIC
+        );
+    END COMPONENT;
+
+    -- Internal signals for state connections
+    SIGNAL s_S0, s_S1, s_S2, s_S3, s_S4, s_S5, s_S6 : STD_LOGIC;
+    SIGNAL d_S0, d_S1, d_S2, d_S3, d_S4, d_S5, d_S6 : STD_LOGIC;
+    
+    -- High signal for enabled flip-flops (since your drawing shows them always enabled)
+    SIGNAL vcc : STD_LOGIC := '1';
+
+BEGIN
+
+    ---------------------------------------------------------------------------
+    -- Combinational Logic for Next State (Based on your Gate Logic)
+    ---------------------------------------------------------------------------
+    
+    -- S0 is the start state (tied to VCC/Ground logic usually, here D is GND in drawing 
+    -- but usually initialized by reset. Per drawing: D is tied to Ground)
+    d_S0 <= '0'; 
+
+    -- S1 logic: Triggered by S0
+    d_S1 <= s_S0;
+
+    -- S2 logic: Triggered by (S0 AND S1) -> Note: In one-hot, this is usually just S1.
+    -- Following your drawing exactly:
+    d_S2 <= s_S0 AND s_S1;
+
+    -- S3 logic: S2 AND (Normalization Needed = 1)
+    d_S3 <= s_S2 AND i_normalization;
+
+    -- S4 logic: S2 AND (Overflow OR Underflow)
+    d_S4 <= s_S2 AND i_overflow_under;
+
+    -- S5 logic: S2 AND NOT(Overflow OR Underflow)
+    d_S5 <= s_S2 AND NOT(i_overflow_under);
+
+    -- S6 logic: (S2 OR S5) -> Your drawing shows S2 and S5 lines entering the D-input area
+    d_S6 <= s_S2 OR s_S5;
+
+    ---------------------------------------------------------------------------
+    -- Flip-Flop Instantiations
+    ---------------------------------------------------------------------------
+
+    FF0: enARdFF_2 PORT MAP (i_resetBar, d_S0, vcc, i_clock, s_S0, OPEN);
+    FF1: enARdFF_2 PORT MAP (i_resetBar, d_S1, vcc, i_clock, s_S1, OPEN);
+    FF2: enARdFF_2 PORT MAP (i_resetBar, d_S2, vcc, i_clock, s_S2, OPEN);
+    FF3: enARdFF_2 PORT MAP (i_resetBar, d_S3, vcc, i_clock, s_S3, OPEN);
+    FF4: enARdFF_2 PORT MAP (i_resetBar, d_S4, vcc, i_clock, s_S4, OPEN);
+    FF5: enARdFF_2 PORT MAP (i_resetBar, d_S5, vcc, i_clock, s_S5, OPEN);
+    FF6: enARdFF_2 PORT MAP (i_resetBar, d_S6, vcc, i_clock, s_S6, OPEN);
+
+    -- Drive Outputs
+    o_S0 <= s_S0; o_S1 <= s_S1; o_S2 <= s_S2;
+    o_S3 <= s_S3; o_S4 <= s_S4; o_S5 <= s_S5;
+    o_S6 <= s_S6;
+
+END structural;
