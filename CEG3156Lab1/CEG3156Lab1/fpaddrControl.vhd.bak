@@ -1,0 +1,261 @@
+--------------------------------------------------------------------------------
+-- 16-Bit Floating-Point Adder - CONTROL PATH
+-- Implements ASM control logic using one-FF-per-state method
+-- States: s0 (IDLE), s1 (LOAD), s2 (CALC_DIFF), s3 (CHECK_SIGN), 
+--         s4 (ALIGN_A), s5 (ALIGN_B), s6 (ADD), s7 (SELECT_EXP), 
+--         s8 (NORMALIZE), s9 (DONE)
+--------------------------------------------------------------------------------
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY fpaddrControl IS
+    PORT(
+        -- Clock and Reset
+        i_clock       : IN  STD_LOGIC;
+        i_reset       : IN  STD_LOGIC;
+        
+        -- External control
+        i_start       : IN  STD_LOGIC;
+        
+        -- Status signals from Datapath
+        ediffNegative : IN  STD_LOGIC;
+        ediffLarge    : IN  STD_LOGIC;
+        needsNorm     : IN  STD_LOGIC;
+        
+        -- Control signals to Datapath
+        loadInputs    : OUT STD_LOGIC;
+        calcExpDiff   : OUT STD_LOGIC;
+        negateEdiff   : OUT STD_LOGIC;
+        setFLAG       : OUT STD_LOGIC;
+        shiftSmaller  : OUT STD_LOGIC;
+        clearSmaller  : OUT STD_LOGIC;
+        addFractions  : OUT STD_LOGIC;
+        selectExp     : OUT STD_LOGIC;
+        normalize     : OUT STD_LOGIC;
+        
+        -- Done signal
+        o_done        : OUT STD_LOGIC
+    );
+END fpaddrControl;
+
+ARCHITECTURE structural OF fpaddrControl IS
+    
+    -- Component Declaration for D Flip-Flop
+    COMPONENT enARdFF_2 IS
+        PORT(
+            i_resetBar : IN  STD_LOGIC;
+            i_d        : IN  STD_LOGIC;
+            i_enable   : IN  STD_LOGIC;
+            i_clock    : IN  STD_LOGIC;
+            o_q, o_qBar: OUT STD_LOGIC
+        );
+    END COMPONENT;
+    
+    -- State signals (one-FF-per-state)
+    signal state_s0  : STD_LOGIC;  -- IDLE
+    signal state_s1  : STD_LOGIC;  -- LOAD inputs
+    signal state_s2  : STD_LOGIC;  -- Calculate exponent difference
+    signal state_s3  : STD_LOGIC;  -- Check sign of Ediff
+    signal state_s4  : STD_LOGIC;  -- Align A (if ExpB > ExpA)
+    signal state_s5  : STD_LOGIC;  -- Align B (if ExpA >= ExpB)
+    signal state_s6  : STD_LOGIC;  -- Add fractions
+    signal state_s7  : STD_LOGIC;  -- Select exponent
+    signal state_s8  : STD_LOGIC;  -- Normalize if needed
+    signal state_s9  : STD_LOGIC;  -- DONE
+    
+    -- D inputs for flip-flops
+    signal d_s0, d_s1, d_s2, d_s3, d_s4, d_s5, d_s6, d_s7, d_s8, d_s9 : STD_LOGIC;
+    
+    -- Unused qBar outputs
+    signal qbar_unused : STD_LOGIC_VECTOR(9 DOWNTO 0);
+    
+    -- Active high reset
+    signal resetBar : STD_LOGIC;
+    signal enable_all : STD_LOGIC;
+    
+BEGIN
+    
+    resetBar <= NOT i_reset;
+    enable_all <= '1';  -- Always enabled
+    
+    -- ========================================================================
+    -- STATE FLIP-FLOPS (One-FF-Per-State Method)
+    -- ========================================================================
+    
+    FF_S0: enARdFF_2 PORT MAP (
+        i_resetBar => resetBar,
+        i_d        => d_s0,
+        i_enable   => enable_all,
+        i_clock    => i_clock,
+        o_q        => state_s0,
+        o_qBar     => qbar_unused(0)
+    );
+    
+    FF_S1: enARdFF_2 PORT MAP (
+        i_resetBar => resetBar,
+        i_d        => d_s1,
+        i_enable   => enable_all,
+        i_clock    => i_clock,
+        o_q        => state_s1,
+        o_qBar     => qbar_unused(1)
+    );
+    
+    FF_S2: enARdFF_2 PORT MAP (
+        i_resetBar => resetBar,
+        i_d        => d_s2,
+        i_enable   => enable_all,
+        i_clock    => i_clock,
+        o_q        => state_s2,
+        o_qBar     => qbar_unused(2)
+    );
+    
+    FF_S3: enARdFF_2 PORT MAP (
+        i_resetBar => resetBar,
+        i_d        => d_s3,
+        i_enable   => enable_all,
+        i_clock    => i_clock,
+        o_q        => state_s3,
+        o_qBar     => qbar_unused(3)
+    );
+    
+    FF_S4: enARdFF_2 PORT MAP (
+        i_resetBar => resetBar,
+        i_d        => d_s4,
+        i_enable   => enable_all,
+        i_clock    => i_clock,
+        o_q        => state_s4,
+        o_qBar     => qbar_unused(4)
+    );
+    
+    FF_S5: enARdFF_2 PORT MAP (
+        i_resetBar => resetBar,
+        i_d        => d_s5,
+        i_enable   => enable_all,
+        i_clock    => i_clock,
+        o_q        => state_s5,
+        o_qBar     => qbar_unused(5)
+    );
+    
+    FF_S6: enARdFF_2 PORT MAP (
+        i_resetBar => resetBar,
+        i_d        => d_s6,
+        i_enable   => enable_all,
+        i_clock    => i_clock,
+        o_q        => state_s6,
+        o_qBar     => qbar_unused(6)
+    );
+    
+    FF_S7: enARdFF_2 PORT MAP (
+        i_resetBar => resetBar,
+        i_d        => d_s7,
+        i_enable   => enable_all,
+        i_clock    => i_clock,
+        o_q        => state_s7,
+        o_qBar     => qbar_unused(7)
+    );
+    
+    FF_S8: enARdFF_2 PORT MAP (
+        i_resetBar => resetBar,
+        i_d        => d_s8,
+        i_enable   => enable_all,
+        i_clock    => i_clock,
+        o_q        => state_s8,
+        o_qBar     => qbar_unused(8)
+    );
+    
+    FF_S9: enARdFF_2 PORT MAP (
+        i_resetBar => resetBar,
+        i_d        => d_s9,
+        i_enable   => enable_all,
+        i_clock    => i_clock,
+        o_q        => state_s9,
+        o_qBar     => qbar_unused(9)
+    );
+    
+    -- ========================================================================
+    -- STATE TRANSITION LOGIC (Next State Equations)
+    -- ========================================================================
+    
+    -- s0 (IDLE): Wait for start signal
+    -- Next state: s1 if start asserted, else stay in s0
+    d_s0 <= (state_s0 AND NOT i_start) OR state_s9;
+    
+    -- s1 (LOAD): Load inputs from external ports
+    -- Next state: Always go to s2
+    d_s1 <= (state_s0 AND i_start);
+    
+    -- s2 (CALC_DIFF): Calculate Ediff = ExpA - ExpB
+    -- Next state: Always go to s3
+    d_s2 <= state_s1;
+    
+    -- s3 (CHECK_SIGN): Check if Ediff is negative
+    -- Next state: s4 if negative (ExpB > ExpA), s5 if positive/zero
+    d_s3 <= state_s2;
+    
+    -- s4 (ALIGN_A): Ediff was negative, so ExpB > ExpA
+    -- Need to: negate Ediff, set FLAG, shift/clear MantA
+    -- Next state: Always go to s6 (add)
+    d_s4 <= (state_s3 AND ediffNegative);
+    
+    -- s5 (ALIGN_B): Ediff was positive/zero, so ExpA >= ExpB
+    -- Need to: shift/clear MantB
+    -- Next state: Always go to s6 (add)
+    d_s5 <= (state_s3 AND NOT ediffNegative);
+    
+    -- s6 (ADD): Add aligned fractions
+    -- Next state: Always go to s7
+    d_s6 <= state_s4 OR state_s5;
+    
+    -- s7 (SELECT_EXP): Select the larger exponent
+    -- Next state: Always go to s8
+    d_s7 <= state_s6;
+    
+    -- s8 (NORMALIZE): Normalize if result >= 2
+    -- Next state: Always go to s9
+    d_s8 <= state_s7;
+    
+    -- s9 (DONE): Operation complete
+    -- Next state: Go back to s0
+    d_s9 <= state_s8;
+    
+    -- ========================================================================
+    -- CONTROL SIGNAL GENERATION (Output Logic)
+    -- ========================================================================
+    
+    -- loadInputs: Active in state s1
+    loadInputs <= state_s1;
+    
+    -- calcExpDiff: Active in state s2
+    calcExpDiff <= state_s2;
+    
+    -- negateEdiff: Active in state s4 (when ExpB > ExpA)
+    negateEdiff <= state_s4;
+    
+    -- setFLAG: Active in state s4 (indicates ExpB is larger)
+    setFLAG <= state_s4;
+    
+    -- shiftSmaller: Active in states s4 or s5
+    shiftSmaller <= state_s4 OR state_s5;
+    
+    -- clearSmaller: Active in states s4 or s5 when difference is large
+    clearSmaller <= (state_s4 OR state_s5) AND ediffLarge;
+    
+    -- addFractions: Active in state s6
+    addFractions <= state_s6;
+    
+    -- selectExp: Active in state s7
+    -- selectExp = 0 means choose ExpA, selectExp = 1 means choose ExpB
+    -- We use FLAG from datapath, but control path doesn't see it
+    -- Instead: if we came from s4, ExpB is larger (selectExp='1')
+    --          if we came from s5, ExpA is larger (selectExp='0')
+    -- For simplicity, assert the signal and let datapath MUX handle selection
+    selectExp <= state_s7;
+    
+    -- normalize: Active in state s8 when normalization is needed
+    normalize <= state_s8 AND needsNorm;
+    
+    -- o_done: Active in state s9
+    o_done <= state_s9;
+    
+END structural;

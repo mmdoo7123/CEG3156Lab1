@@ -1,0 +1,587 @@
+$comment
+	File created using the following command:
+		vcd file CEG3156Lab1.msim.vcd -direction
+$end
+$date
+	Mon Feb 09 15:05:33 2026
+$end
+$version
+	ModelSim Version 10.1d
+$end
+$timescale
+	1ps
+$end
+$scope module adder_vlg_vec_tst $end
+$var reg 1 ! Gclock $end
+$var reg 1 " resetbar $end
+$var wire 1 # ExponentOut [6] $end
+$var wire 1 $ ExponentOut [5] $end
+$var wire 1 % ExponentOut [4] $end
+$var wire 1 & ExponentOut [3] $end
+$var wire 1 ' ExponentOut [2] $end
+$var wire 1 ( ExponentOut [1] $end
+$var wire 1 ) ExponentOut [0] $end
+$var wire 1 * MantissaOut [7] $end
+$var wire 1 + MantissaOut [6] $end
+$var wire 1 , MantissaOut [5] $end
+$var wire 1 - MantissaOut [4] $end
+$var wire 1 . MantissaOut [3] $end
+$var wire 1 / MantissaOut [2] $end
+$var wire 1 0 MantissaOut [1] $end
+$var wire 1 1 MantissaOut [0] $end
+$var wire 1 2 s0 $end
+$var wire 1 3 s1 $end
+$var wire 1 4 s2 $end
+$var wire 1 5 s3 $end
+$var wire 1 6 s4 $end
+$var wire 1 7 s5 $end
+$var wire 1 8 s6 $end
+$var wire 1 9 s7 $end
+$var wire 1 : sampler $end
+$scope module i1 $end
+$var wire 1 ; gnd $end
+$var wire 1 < vcc $end
+$var wire 1 = unknown $end
+$var tri1 1 > devclrn $end
+$var tri1 1 ? devpor $end
+$var tri1 1 @ devoe $end
+$var wire 1 A inst|inst5|count_reg|gen_reg:6:bit_inst|int_q~q $end
+$var wire 1 B inst|inst7|gen_reg:0:bit_inst|int_q~q $end
+$var wire 1 C inst|inst7|gen_reg:2:bit_inst|int_q~q $end
+$var wire 1 D inst|inst5|input_mux|gen_mux:6:mux_inst|o_Out~0_combout $end
+$var wire 1 E inst|inst5|input_mux|gen_mux:6:mux_inst|o_Out~1_combout $end
+$var wire 1 F inst|inst7|w_d[0]~0_combout $end
+$var wire 1 G inst|inst7|w_d[2]~6_combout $end
+$var wire 1 H s0~output_o $end
+$var wire 1 I s1~output_o $end
+$var wire 1 J s2~output_o $end
+$var wire 1 K s3~output_o $end
+$var wire 1 L s4~output_o $end
+$var wire 1 M s5~output_o $end
+$var wire 1 N s6~output_o $end
+$var wire 1 O s7~output_o $end
+$var wire 1 P ExponentOut[6]~output_o $end
+$var wire 1 Q ExponentOut[5]~output_o $end
+$var wire 1 R ExponentOut[4]~output_o $end
+$var wire 1 S ExponentOut[3]~output_o $end
+$var wire 1 T ExponentOut[2]~output_o $end
+$var wire 1 U ExponentOut[1]~output_o $end
+$var wire 1 V ExponentOut[0]~output_o $end
+$var wire 1 W MantissaOut[7]~output_o $end
+$var wire 1 X MantissaOut[6]~output_o $end
+$var wire 1 Y MantissaOut[5]~output_o $end
+$var wire 1 Z MantissaOut[4]~output_o $end
+$var wire 1 [ MantissaOut[3]~output_o $end
+$var wire 1 \ MantissaOut[2]~output_o $end
+$var wire 1 ] MantissaOut[1]~output_o $end
+$var wire 1 ^ MantissaOut[0]~output_o $end
+$var wire 1 _ Gclock~input_o $end
+$var wire 1 ` inst2|FF0|int_q~feeder_combout $end
+$var wire 1 a resetbar~input_o $end
+$var wire 1 b inst2|FF0|int_q~q $end
+$var wire 1 c inst|inst1|gen_reg:6:bit_inst|int_q~0_combout $end
+$var wire 1 d inst|inst1|gen_reg:6:bit_inst|int_q~q $end
+$var wire 1 e inst2|d_S1~combout $end
+$var wire 1 f inst2|FF1|int_q~q $end
+$var wire 1 g inst|inst5|input_mux|gen_mux:1:mux_inst|o_Out~0_combout $end
+$var wire 1 h inst2|d_S3~combout $end
+$var wire 1 i inst2|FF3|int_q~q $end
+$var wire 1 j inst|inst5|comb~0_combout $end
+$var wire 1 k inst|inst5|count_reg|gen_reg:1:bit_inst|int_q~q $end
+$var wire 1 l inst|inst5|input_mux|gen_mux:0:mux_inst|o_Out~0_combout $end
+$var wire 1 m inst|inst5|count_reg|gen_reg:0:bit_inst|int_q~q $end
+$var wire 1 n inst|inst5|input_mux|gen_mux:2:mux_inst|o_Out~0_combout $end
+$var wire 1 o inst|inst5|input_mux|gen_mux:2:mux_inst|o_Out~1_combout $end
+$var wire 1 p inst|inst5|count_reg|gen_reg:2:bit_inst|int_q~q $end
+$var wire 1 q inst|inst5|decrementer|gen_adder:3:add_inst|int_CarryOut1~0_combout $end
+$var wire 1 r inst|inst5|input_mux|gen_mux:3:mux_inst|o_Out~0_combout $end
+$var wire 1 s inst|inst5|count_reg|gen_reg:3:bit_inst|int_q~q $end
+$var wire 1 t inst|inst5|o_zero~0_combout $end
+$var wire 1 u inst|inst5|input_mux|gen_mux:4:mux_inst|o_Out~0_combout $end
+$var wire 1 v inst|inst5|count_reg|gen_reg:4:bit_inst|int_q~q $end
+$var wire 1 w inst|inst5|input_mux|gen_mux:5:mux_inst|o_Out~0_combout $end
+$var wire 1 x inst|inst5|input_mux|gen_mux:5:mux_inst|o_Out~1_combout $end
+$var wire 1 y inst|inst5|count_reg|gen_reg:5:bit_inst|int_q~q $end
+$var wire 1 z inst|inst5|o_zero~1_combout $end
+$var wire 1 { inst2|d_S2~combout $end
+$var wire 1 | inst2|FF2|int_q~q $end
+$var wire 1 } inst|inst5|w_valid~0_combout $end
+$var wire 1 ~ inst|inst5|w_valid~q $end
+$var wire 1 !! inst2|d_S4~0_combout $end
+$var wire 1 "! inst2|d_S4~1_combout $end
+$var wire 1 #! inst2|FF4|int_q~q $end
+$var wire 1 $! inst|inst7|gen_reg:8:bit_inst|int_q~0_combout $end
+$var wire 1 %! inst|inst7|gen_reg:8:bit_inst|int_q~q $end
+$var wire 1 &! inst|inst7|w_d[6]~2_combout $end
+$var wire 1 '! inst|inst7|gen_reg:6:bit_inst|int_q~0_combout $end
+$var wire 1 (! inst|inst7|gen_reg:6:bit_inst|int_q~q $end
+$var wire 1 )! inst|inst9|gen_adder:8:add_inst|o_Sum~combout $end
+$var wire 1 *! inst|inst7|w_d[5]~3_combout $end
+$var wire 1 +! inst|inst7|gen_reg:5:bit_inst|int_q~q $end
+$var wire 1 ,! inst|inst11|gen_comp:0:comp|o_GT~0_combout $end
+$var wire 1 -! inst|inst7|w_d[4]~4_combout $end
+$var wire 1 .! inst|inst7|gen_reg:4:bit_inst|int_q~q $end
+$var wire 1 /! inst|inst7|w_d[3]~5_combout $end
+$var wire 1 0! inst|inst7|gen_reg:3:bit_inst|int_q~q $end
+$var wire 1 1! inst|inst7|w_d[1]~7_combout $end
+$var wire 1 2! inst|inst7|gen_reg:1:bit_inst|int_q~q $end
+$var wire 1 3! inst|inst11|gen_comp:0:comp|o_GT~1_combout $end
+$var wire 1 4! inst|inst11|gen_comp:0:comp|o_GT~combout $end
+$var wire 1 5! inst2|d_S5~combout $end
+$var wire 1 6! inst2|FF5|int_q~q $end
+$var wire 1 7! inst2|FF6|int_q~q $end
+$var wire 1 8! inst2|d_S7~combout $end
+$var wire 1 9! inst2|FF7|int_q~q $end
+$var wire 1 :! inst|inst13|reg_q~1_combout $end
+$var wire 1 ;! inst|inst13|reg_q[6]~0_combout $end
+$var wire 1 <! inst|inst13|u_inc|gen_adder:2:add_inst|int_CarryOut1~combout $end
+$var wire 1 =! inst2|FF4|int_q~_wirecell_combout $end
+$var wire 1 >! inst|inst13|u_inc|gen_adder:1:add_inst|int_CarryOut1~combout $end
+$var wire 1 ?! inst|inst13|u_inc|gen_adder:3:add_inst|int_CarryOut3~combout $end
+$var wire 1 @! inst|inst13|u_inc|gen_adder:4:add_inst|int_CarryOut1~combout $end
+$var wire 1 A! inst|inst13|u_inc|gen_adder:6:add_inst|int_CarryOut1~combout $end
+$var wire 1 B! inst|inst13|u_inc|gen_adder:5:add_inst|int_CarryOut1~combout $end
+$var wire 1 C! inst|inst13|u_inc|gen_adder:3:add_inst|int_CarryOut1~combout $end
+$var wire 1 D! inst|inst12|mux_inst|gen_mux:8:mux_inst|o_Out~0_combout $end
+$var wire 1 E! inst|inst12|w_enable~0_combout $end
+$var wire 1 F! inst|inst12|gen_bits:8:dff_inst|int_q~q $end
+$var wire 1 G! inst|inst7|w_d[7]~1_combout $end
+$var wire 1 H! inst|inst7|gen_reg:7:bit_inst|int_q~q $end
+$var wire 1 I! inst|inst12|mux_inst|gen_mux:7:mux_inst|o_Out~0_combout $end
+$var wire 1 J! inst|inst12|mux_inst|gen_mux:7:mux_inst|o_Out~1_combout $end
+$var wire 1 K! inst|inst12|gen_bits:7:dff_inst|int_q~q $end
+$var wire 1 L! inst|inst12|mux_inst|gen_mux:6:mux_inst|o_Out~0_combout $end
+$var wire 1 M! inst|inst12|gen_bits:6:dff_inst|int_q~q $end
+$var wire 1 N! inst|inst12|mux_inst|gen_mux:5:mux_inst|o_Out~0_combout $end
+$var wire 1 O! inst|inst12|gen_bits:5:dff_inst|int_q~q $end
+$var wire 1 P! inst|inst12|mux_inst|gen_mux:4:mux_inst|o_Out~0_combout $end
+$var wire 1 Q! inst|inst12|gen_bits:4:dff_inst|int_q~q $end
+$var wire 1 R! inst|inst12|mux_inst|gen_mux:3:mux_inst|o_Out~0_combout $end
+$var wire 1 S! inst|inst12|gen_bits:3:dff_inst|int_q~q $end
+$var wire 1 T! inst|inst12|mux_inst|gen_mux:2:mux_inst|o_Out~0_combout $end
+$var wire 1 U! inst|inst12|gen_bits:2:dff_inst|int_q~q $end
+$var wire 1 V! inst|inst12|mux_inst|gen_mux:1:mux_inst|o_Out~0_combout $end
+$var wire 1 W! inst|inst12|gen_bits:1:dff_inst|int_q~q $end
+$var wire 1 X! inst|inst12|mux_inst|gen_mux:0:mux_inst|o_Out~0_combout $end
+$var wire 1 Y! inst|inst12|gen_bits:0:dff_inst|int_q~q $end
+$var wire 1 Z! inst|inst13|reg_q [6] $end
+$var wire 1 [! inst|inst13|reg_q [5] $end
+$var wire 1 \! inst|inst13|reg_q [4] $end
+$var wire 1 ]! inst|inst13|reg_q [3] $end
+$var wire 1 ^! inst|inst13|reg_q [2] $end
+$var wire 1 _! inst|inst13|reg_q [1] $end
+$var wire 1 `! inst|inst13|reg_q [0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0!
+1"
+0)
+0(
+0'
+0&
+0%
+0$
+0#
+01
+00
+0/
+0.
+0-
+0,
+0+
+0*
+12
+03
+04
+05
+06
+07
+08
+09
+x:
+0;
+1<
+x=
+1>
+1?
+1@
+0A
+0B
+0C
+1D
+1E
+0F
+0G
+1H
+0I
+0J
+0K
+0L
+0M
+0N
+0O
+0P
+0Q
+0R
+0S
+0T
+0U
+0V
+0W
+0X
+0Y
+0Z
+0[
+0\
+0]
+0^
+0_
+1`
+1a
+0b
+1c
+0d
+0e
+0f
+1g
+0h
+0i
+0j
+0k
+1l
+0m
+1n
+1o
+0p
+0q
+1r
+0s
+1t
+1u
+0v
+1w
+1x
+0y
+1z
+1{
+0|
+0}
+0~
+0!!
+0"!
+0#!
+1$!
+0%!
+1&!
+1'!
+0(!
+0)!
+0*!
+0+!
+0,!
+0-!
+0.!
+0/!
+00!
+01!
+02!
+03!
+04!
+05!
+06!
+07!
+08!
+09!
+1:!
+0;!
+0<!
+1=!
+0>!
+0?!
+0@!
+0A!
+0B!
+0C!
+0D!
+0E!
+0F!
+0G!
+0H!
+0I!
+0J!
+0K!
+0L!
+0M!
+0N!
+0O!
+0P!
+0Q!
+0R!
+0S!
+0T!
+0U!
+0V!
+0W!
+0X!
+0Y!
+0`!
+0_!
+0^!
+0]!
+0\!
+0[!
+0Z!
+$end
+#40000
+1!
+1_
+0:
+1(!
+1%!
+1d
+1b
+1|
+1,!
+1*!
+1G!
+0{
+0'!
+0&!
+1!!
+1}
+0w
+0n
+1j
+1h
+0H
+1J
+02
+14
+14!
+#80000
+0!
+0_
+1:
+#120000
+1!
+1_
+0:
+1~
+1y
+1v
+1s
+1p
+1m
+1k
+1A
+0|
+1i
+0h
+0z
+1w
+0D
+0u
+0t
+1n
+0l
+0E
+0x
+0o
+1'!
+0$!
+0!!
+0J
+1K
+04
+15
+1h
+1x
+1E
+1u
+1o
+#160000
+0!
+0_
+1:
+#200000
+1!
+1_
+0:
+1H!
+1+!
+0(!
+0%!
+0m
+1)!
+1&!
+1-!
+0*!
+0G!
+1l
+0g
+#240000
+0!
+0_
+1:
+#280000
+1!
+1_
+0:
+0H!
+1.!
+0+!
+1(!
+1m
+0k
+0&!
+13!
+1/!
+0-!
+1*!
+0l
+#320000
+0!
+0_
+1:
+#360000
+1!
+1_
+0:
+10!
+0.!
+1+!
+0(!
+0m
+1G
+0/!
+1-!
+0*!
+0n
+1l
+1g
+0o
+#400000
+0!
+0_
+1:
+#440000
+1!
+1_
+0:
+00!
+1.!
+0+!
+0p
+1m
+1k
+1C
+0G
+1/!
+0-!
+0l
+11!
+#480000
+0!
+0_
+1:
+#520000
+1!
+1_
+0:
+12!
+10!
+0.!
+0m
+0C
+1F
+1G
+0/!
+1l
+0g
+01!
+#560000
+0!
+0_
+1:
+#600000
+1!
+1_
+0:
+02!
+00!
+1m
+0k
+1C
+1B
+0F
+0G
+0l
+11!
+#640000
+0!
+0_
+1:
+#680000
+1!
+1_
+0:
+12!
+0m
+0C
+0B
+1F
+1q
+1n
+1l
+1g
+01!
+0r
+1o
+#720000
+0!
+0_
+1:
+#760000
+1!
+1_
+0:
+02!
+0s
+1p
+1m
+1k
+1B
+03!
+0F
+0l
+#800000
+0!
+0_
+1:
+#840000
+1!
+1_
+0:
+0m
+0B
+1l
+0g
+#880000
+0!
+0_
+1:
+#920000
+1!
+1_
+0:
+1m
+0k
+0l
+#960000
+0!
+0_
+1:
+#1000000

@@ -1,0 +1,65 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY genericShiftRegister IS
+    GENERIC (
+        n : integer := 8 -- Default width
+    );
+    PORT(
+        i_clock    : IN  STD_LOGIC;
+        i_resetBar : IN  STD_LOGIC;
+        i_load     : IN  STD_LOGIC; -- Load parallel data
+        i_shift    : IN  STD_LOGIC; -- Enable shift right
+        i_serialIn : IN  STD_LOGIC; -- Value to shift into MSB (usually '0')
+        i_data     : IN  STD_LOGIC_VECTOR(n-1 downto 0); -- Parallel input
+        o_q        : OUT STD_LOGIC_VECTOR(n-1 downto 0)
+    );
+END genericShiftRegister;
+
+ARCHITECTURE structural OF genericShiftRegister IS
+    SIGNAL w_d      : STD_LOGIC_VECTOR(n-1 downto 0);
+    SIGNAL w_q      : STD_LOG_VECTOR(n-1 downto 0);
+    SIGNAL w_enable : STD_LOGIC;
+
+    COMPONENT enARdFF_2
+        PORT(
+            i_resetBar : IN  STD_LOGIC;
+            i_d        : IN  STD_LOGIC;
+            i_enable   : IN  STD_LOGIC;
+            i_clock    : IN  STD_LOGIC;
+            o_q, o_qBar : OUT STD_LOGIC
+        );
+    END COMPONENT;
+
+BEGIN
+    -- The flip-flop should trigger if we are either loading or shifting
+    w_enable <= i_load OR i_shift;
+
+    -- Structural Logic for the D-input of each Flip-Flop
+    gen_bits: FOR i IN n-1 DOWNTO 0 GENERATE
+        
+        -- MSB Case: Input is either parallel data or the serial bit shifted in
+        msb: IF i = n-1 GENERATE
+            w_d(i) <= (i_data(i) AND i_load) OR (i_serialIn AND i_shift);
+        END GENERATE msb;
+
+        -- Other bits: Input is either parallel data or the bit to its left (i+1)
+        other: IF i < n-1 GENERATE
+            w_d(i) <= (i_data(i) AND i_load) OR (w_q(i+1) AND i_shift);
+        END GENERATE other;
+
+        -- Instantiate the flip-flop for this bit
+        dff_inst: enARdFF_2
+            PORT MAP (
+                i_resetBar => i_resetBar,
+                i_clock    => i_clock,
+                i_enable   => w_enable,
+                i_d        => w_d(i),
+                o_q        => w_q(i),
+                o_qBar     => OPEN -- qBar is unused per your request
+            );
+    END GENERATE gen_bits;
+
+    o_q <= w_q;
+
+END structural;

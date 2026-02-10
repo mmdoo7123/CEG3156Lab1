@@ -1,0 +1,59 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY structuralShiftController IS
+    PORT(
+        i_AGtB     : IN  STD_LOGIC;
+        i_ALtB     : IN  STD_LOGIC;
+        i_ExpDiff  : IN  STD_LOGIC_VECTOR(6 downto 0);
+        o_MuxSel   : OUT STD_LOGIC;
+        o_ShiftAmt : OUT STD_LOGIC_VECTOR(6 downto 0)
+    );
+END structuralShiftController;
+
+ARCHITECTURE structural OF structuralShiftController IS
+    -- Components already defined in your lab files
+    COMPONENT genericAdder IS
+        GENERIC (n : integer := 7);
+        PORT (i_Ai, i_Bi : IN STD_LOGIC_VECTOR(n-1 downto 0); i_CarryIn : IN STD_LOGIC; o_Sum : OUT STD_LOGIC_VECTOR(n-1 downto 0));
+    END COMPONENT;
+
+    COMPONENT genericMux2to1 IS
+        GENERIC (n : integer := 7);
+        PORT (i_A, i_B : IN STD_LOGIC_VECTOR(n-1 downto 0); i_Sel : IN STD_LOGIC; o_Out : OUT STD_LOGIC_VECTOR(n-1 downto 0));
+    END COMPONENT;
+
+    SIGNAL w_invDiff : STD_LOGIC_VECTOR(6 downto 0);
+    SIGNAL w_absDiff : STD_LOGIC_VECTOR(6 downto 0);
+    SIGNAL vcc       : STD_LOGIC := '1';
+    SIGNAL gnd       : STD_LOGIC := '0';
+
+BEGIN
+    -- 1. Mux Select: If B is greater, select path A (1), else select path B (0)
+    o_MuxSel <= i_ALtB;
+
+    -- 2. Absolute Value Calculation for Shift Amount
+    -- Step A: Bitwise NOT of the difference
+    w_invDiff <= NOT(i_ExpDiff);
+
+    -- Step B: Two's complement incrementer (used if result was negative)
+    abs_calc: genericAdder
+        GENERIC MAP (n => 7)
+        PORT MAP(
+            i_Ai      => w_invDiff,
+            i_Bi      => "0000000",
+            i_CarryIn => vcc,
+            o_Sum     => w_absDiff
+        );
+
+    -- Step C: Mux to choose between raw difference (if A>B) or absolute (if B>A)
+    shift_mux: genericMux2to1
+        GENERIC MAP (n => 7)
+        PORT MAP(
+            i_A   => i_ExpDiff, -- A-B is already positive
+            i_B   => w_absDiff, -- B-A was negative, use absolute
+            i_Sel => i_ALtB,
+            o_Out => o_ShiftAmt
+        );
+
+END structural;

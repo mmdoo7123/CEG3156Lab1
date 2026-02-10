@@ -1,0 +1,38 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY normalizationController IS
+    PORT(
+        -- Inputs from Big ALU
+        i_BigALUSum   : IN  STD_LOGIC_VECTOR(8 downto 0); -- 9-bit Significand result
+        i_BigALUCOut  : IN  STD_LOGIC;                    -- Carry-out (Overflow bit)
+        
+        -- Control Signals to Datapath
+        o_shiftRight  : OUT STD_LOGIC; -- Shift significand right
+        o_shiftLeft   : OUT STD_LOGIC; -- Shift significand left
+        o_incExp      : OUT STD_LOGIC; -- Increment Exponent
+        o_decExp      : OUT STD_LOGIC; -- Decrement Exponent
+        o_isOverflow  : OUT STD_LOGIC  -- Indicator for final overflow
+    );
+END normalizationController;
+
+ARCHITECTURE structural OF normalizationController IS
+    SIGNAL w_isZero : STD_LOG_LOGIC;
+BEGIN
+    -- 1. Right Shift / Increment Logic (Post-Addition Overflow)
+    -- If Big ALU has a carry-out (e.g., 1.x + 1.x = 1x.x), we must shift right.
+    o_shiftRight <= i_BigALUCOut;
+    o_incExp     <= i_BigALUCOut;
+
+    -- 2. Left Shift / Decrement Logic (Leading Zero)
+    -- In 16-bit format, bit 8 is the implicit/leading '1'. If it's '0' after addition,
+    -- we must shift left and decrement the exponent to restore normalization[cite: 148].
+    -- Note: This only applies if there was no carry-out from the Big ALU.
+    o_shiftLeft <= (NOT i_BigALUCOut) AND (NOT i_BigALUSum(8));
+    o_decExp    <= (NOT i_BigALUCOut) AND (NOT i_BigALUSum(8));
+
+    -- 3. Exception Handling
+    -- Overflow occurs if we need to increment the exponent beyond its 7-bit max[cite: 149, 190].
+    o_isOverflow <= i_BigALUCOut; -- Simplified for the normalization stage
+
+END structural;

@@ -1,0 +1,167 @@
+--------------------------------------------------------------------------------
+-- 16-Bit Floating-Point Adder - TOP LEVEL
+-- Format: [15] Sign, [14:8] Exponent (7-bit), [7:0] Mantissa (8-bit)
+-- Combines Datapath and Control Path
+--------------------------------------------------------------------------------
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY fpaddrIpaddr IS
+    PORT(
+        -- Operand A
+        SignA       : IN  STD_LOGIC;
+        MantissaA   : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+        ExponentA   : IN  STD_LOGIC_VECTOR(6 DOWNTO 0);
+        
+        -- Operand B
+        SignB       : IN  STD_LOGIC;
+        MantissaB   : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+        ExponentB   : IN  STD_LOGIC_VECTOR(6 DOWNTO 0);
+        
+        -- Control
+        GClock      : IN  STD_LOGIC;
+        GReset      : IN  STD_LOGIC;
+        
+        -- Result
+        SignOut     : OUT STD_LOGIC;
+        MantissaOut : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+        ExponentOut : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+        Overflow    : OUT STD_LOGIC
+    );
+END fpaddrIpaddr;
+
+ARCHITECTURE structural OF fpaddrIpaddr IS
+    
+    -- Component Declarations
+    COMPONENT fpaddrDatapath IS
+        PORT(
+            i_clock       : IN  STD_LOGIC;
+            i_reset       : IN  STD_LOGIC;
+            SignA         : IN  STD_LOGIC;
+            MantissaA     : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+            ExponentA     : IN  STD_LOGIC_VECTOR(6 DOWNTO 0);
+            SignB         : IN  STD_LOGIC;
+            MantissaB     : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+            ExponentB     : IN  STD_LOGIC_VECTOR(6 DOWNTO 0);
+            loadInputs    : IN  STD_LOGIC;
+            calcExpDiff   : IN  STD_LOGIC;
+            negateEdiff   : IN  STD_LOGIC;
+            setFLAG       : IN  STD_LOGIC;
+            shiftSmaller  : IN  STD_LOGIC;
+            clearSmaller  : IN  STD_LOGIC;
+            addFractions  : IN  STD_LOGIC;
+            selectExp     : IN  STD_LOGIC;
+            normalize     : IN  STD_LOGIC;
+            ediffNegative : OUT STD_LOGIC;
+            ediffLarge    : OUT STD_LOGIC;
+            needsNorm     : OUT STD_LOGIC;
+            SignOut       : OUT STD_LOGIC;
+            MantissaOut   : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+            ExponentOut   : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+            Overflow      : OUT STD_LOGIC
+        );
+    END COMPONENT;
+    
+    COMPONENT fpaddrControl IS
+        PORT(
+            i_clock       : IN  STD_LOGIC;
+            i_reset       : IN  STD_LOGIC;
+            i_start       : IN  STD_LOGIC;
+            ediffNegative : IN  STD_LOGIC;
+            ediffLarge    : IN  STD_LOGIC;
+            needsNorm     : IN  STD_LOGIC;
+            loadInputs    : OUT STD_LOGIC;
+            calcExpDiff   : OUT STD_LOGIC;
+            negateEdiff   : OUT STD_LOGIC;
+            setFLAG       : OUT STD_LOGIC;
+            shiftSmaller  : OUT STD_LOGIC;
+            clearSmaller  : OUT STD_LOGIC;
+            addFractions  : OUT STD_LOGIC;
+            selectExp     : OUT STD_LOGIC;
+            normalize     : OUT STD_LOGIC;
+            o_done        : OUT STD_LOGIC
+        );
+    END COMPONENT;
+    
+    -- Internal signals connecting Control and Datapath
+    signal loadInputs    : STD_LOGIC;
+    signal calcExpDiff   : STD_LOGIC;
+    signal negateEdiff   : STD_LOGIC;
+    signal setFLAG       : STD_LOGIC;
+    signal shiftSmaller  : STD_LOGIC;
+    signal clearSmaller  : STD_LOGIC;
+    signal addFractions  : STD_LOGIC;
+    signal selectExp     : STD_LOGIC;
+    signal normalize     : STD_LOGIC;
+    
+    signal ediffNegative : STD_LOGIC;
+    signal ediffLarge    : STD_LOGIC;
+    signal needsNorm     : STD_LOGIC;
+    
+    signal done_internal : STD_LOGIC;
+    signal start_internal: STD_LOGIC;
+    
+BEGIN
+    
+    -- For this implementation, we auto-start on reset release
+    -- In a real system, you might have an explicit start signal
+    start_internal <= NOT GReset;
+    
+    -- ========================================================================
+    -- DATAPATH INSTANTIATION
+    -- ========================================================================
+    
+    DATAPATH: fpaddrDatapath
+        PORT MAP (
+            i_clock       => GClock,
+            i_reset       => GReset,
+            SignA         => SignA,
+            MantissaA     => MantissaA,
+            ExponentA     => ExponentA,
+            SignB         => SignB,
+            MantissaB     => MantissaB,
+            ExponentB     => ExponentB,
+            loadInputs    => loadInputs,
+            calcExpDiff   => calcExpDiff,
+            negateEdiff   => negateEdiff,
+            setFLAG       => setFLAG,
+            shiftSmaller  => shiftSmaller,
+            clearSmaller  => clearSmaller,
+            addFractions  => addFractions,
+            selectExp     => selectExp,
+            normalize     => normalize,
+            ediffNegative => ediffNegative,
+            ediffLarge    => ediffLarge,
+            needsNorm     => needsNorm,
+            SignOut       => SignOut,
+            MantissaOut   => MantissaOut,
+            ExponentOut   => ExponentOut,
+            Overflow      => Overflow
+        );
+    
+    -- ========================================================================
+    -- CONTROL PATH INSTANTIATION
+    -- ========================================================================
+    
+    CONTROL: fpaddrControl
+        PORT MAP (
+            i_clock       => GClock,
+            i_reset       => GReset,
+            i_start       => start_internal,
+            ediffNegative => ediffNegative,
+            ediffLarge    => ediffLarge,
+            needsNorm     => needsNorm,
+            loadInputs    => loadInputs,
+            calcExpDiff   => calcExpDiff,
+            negateEdiff   => negateEdiff,
+            setFLAG       => setFLAG,
+            shiftSmaller  => shiftSmaller,
+            clearSmaller  => clearSmaller,
+            addFractions  => addFractions,
+            selectExp     => selectExp,
+            normalize     => normalize,
+            o_done        => done_internal
+        );
+    
+END structural;

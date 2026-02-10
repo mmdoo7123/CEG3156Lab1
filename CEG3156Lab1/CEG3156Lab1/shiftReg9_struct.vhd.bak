@@ -1,0 +1,117 @@
+--==============================================================================
+-- 9-bit Structural Logical Right Shift Register (for FP Adder significand align)
+--  - Purely STRUCTURAL architecture (no processes / no if statements)
+--  - Uses enARdFF_2 storage elements (given)
+--  - Uses a generic n-bit 2:1 MUX for selecting Load vs Shift data
+--  - Logical right shift RTN: X <- 0 @ X<8:1>   (i.e., '0' & X(8 downto 1))
+--  - FF enable = (i_load OR i_shift)
+--  - Load has priority if i_load='1' (even if i_shift='1')
+--==============================================================================
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+--========================
+-- Generic n-bit 2-to-1 MUX
+--========================
+ENTITY mux2to1_n IS
+  GENERIC ( N : INTEGER := 9 );
+  PORT (
+    i_sel  : IN  STD_LOGIC;                         -- '1' selects i_a, '0' selects i_b
+    i_a    : IN  STD_LOGIC_VECTOR(N-1 DOWNTO 0);     -- parallel/load data
+    i_b    : IN  STD_LOGIC_VECTOR(N-1 DOWNTO 0);     -- shift data
+    o_y    : OUT STD_LOGIC_VECTOR(N-1 DOWNTO 0)
+  );
+END mux2to1_n;
+
+ARCHITECTURE dataflow OF mux2to1_n IS
+BEGIN
+  -- Concurrent selected signal assignment (no process)
+  WITH i_sel SELECT
+    o_y <= i_a WHEN '1',
+           i_b WHEN OTHERS;
+END dataflow;
+
+
+--=========================================
+-- 9-bit Structural Shift Register (Logical)
+--=========================================
+ENTITY shiftReg9_struct IS
+  PORT (
+    i_clock    : IN  STD_LOGIC;
+    i_resetBar : IN  STD_LOGIC;
+
+    i_load     : IN  STD_LOGIC;                      -- parallel load control
+    i_shift    : IN  STD_LOGIC;                      -- shift control (held high for N cycles)
+    i_data     : IN  STD_LOGIC_VECTOR(8 DOWNTO 0);   -- 9-bit input (implicit '1' + 8-bit mantissa)
+
+    o_q        : OUT STD_LOGIC_VECTOR(8 DOWNTO 0)    -- 9-bit output
+  );
+END shiftReg9_struct;
+
+ARCHITECTURE structural OF shiftReg9_struct IS
+
+  -- Provided DFF component (given file enARdFF_2.vhd)
+  COMPONENT enARdFF_2 IS
+    PORT(
+      i_resetBar : IN  STD_LOGIC;
+      i_d        : IN  STD_LOGIC;
+      i_enable   : IN  STD_LOGIC;
+      i_clock    : IN  STD_LOGIC;
+      o_q        : OUT STD_LOGIC;
+      o_qBar     : OUT STD_LOGIC
+    );
+  END COMPONENT;
+
+  -- Generic mux component
+  COMPONENT mux2to1_n IS
+    GENERIC ( N : INTEGER := 9 );
+    PORT (
+      i_sel  : IN  STD_LOGIC;
+      i_a    : IN  STD_LOGIC_VECTOR(N-1 DOWNTO 0);
+      i_b    : IN  STD_LOGIC_VECTOR(N-1 DOWNTO 0);
+      o_y    : OUT STD_LOGIC_VECTOR(N-1 DOWNTO 0)
+    );
+  END COMPONENT;
+
+  SIGNAL q_int       : STD_LOGIC_VECTOR(8 DOWNTO 0);
+  SIGNAL shifted_int : STD_LOGIC_VECTOR(8 DOWNTO 0);
+  SIGNAL d_int       : STD_LOGIC_VECTOR(8 DOWNTO 0);
+  SIGNAL en_int      : STD_LOGIC;
+
+BEGIN
+
+  -- Drive external output
+  o_q <= q_int;
+
+  -- FF enable: (i_load OR i_shift)
+  en_int <= i_load OR i_shift;
+
+  -- Logical right shift RTN: X <- 0 @ X<8:1>
+  shifted_int <= '0' & q_int(8 DOWNTO 1);
+
+  -- MUX selects between parallel load and shifted data
+  -- Load priority: if i_load='1' choose i_data else choose shifted_int
+  u_mux : mux2to1_n
+    GENERIC MAP ( N => 9 )
+    PORT MAP (
+      i_sel => i_load,
+      i_a   => i_data,
+      i_b   => shifted_int,
+      o_y   => d_int
+    );
+
+  -- 9 storage elements (enARdFF_2) using FOR...GENERATE
+  gen_ff : FOR i IN 0 TO 8 GENERATE
+    u_ff : enARdFF_2
+      PORT MAP (
+        i_resetBar => i_resetBar,
+        i_d        => d_int(i),
+        i_enable   => en_int,
+        i_clock    => i_clock,
+        o_q        => q_int(i),
+        o_qBar     => OPEN
+      );
+  END GENERATE gen_ff;
+
+END structural;

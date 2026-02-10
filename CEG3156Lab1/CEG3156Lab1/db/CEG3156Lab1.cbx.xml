@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="CEG3156Lab1">
+		<CBX_INST_ENTRY INSTANCE_NAME="|adder|lpm_constant5:inst7|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_ih6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|adder|lpm_constant6:inst8|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_vf6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|adder|lpm_constant7:inst9|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_uf6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|adder|lpm_constant8:inst10|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_vf6.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

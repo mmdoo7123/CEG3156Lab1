@@ -1,6 +1,0 @@
-../Src/systick.c:12:6:StartSysTick	1
-../Src/systick.c:22:6:SysTick_Handler	1
-../Src/systick.c:26:6:WaitForSysTick	2
-../Src/systick.c:33:6:msDelay	2
-../Src/systick.c:38:8:TimeNow	1
-../Src/systick.c:42:8:TimePassed	2

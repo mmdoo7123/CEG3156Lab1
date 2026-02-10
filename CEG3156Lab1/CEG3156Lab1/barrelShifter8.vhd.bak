@@ -1,0 +1,55 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY barrelShifter8 IS
+    PORT(
+        i_Data  : IN  STD_LOGIC_VECTOR(7 downto 0);
+        i_Shift : IN  STD_LOGIC_VECTOR(2 downto 0); -- Diff from Small ALU (bits 2..0)
+        o_Data  : OUT STD_LOGIC_VECTOR(7 downto 0)
+    );
+END barrelShifter8;
+
+ARCHITECTURE structural OF barrelShifter8 IS
+    -- Intermediate signals between MUX layers
+    SIGNAL w_Layer1, w_Layer2 : STD_LOGIC_VECTOR(7 downto 0);
+    SIGNAL gnd : STD_LOGIC := '0';
+
+    COMPONENT eightBitMux2to1
+    PORT(
+        i_A, i_B : IN  STD_LOGIC_VECTOR(7 downto 0);
+        i_Sel    : IN  STD_LOGIC;
+        o_Out    : OUT STD_LOGIC_VECTOR(7 downto 0));
+    END COMPONENT;
+
+BEGIN
+    -- Layer 1: Shift right by 1 bit if i_Shift(0) is '1'
+    -- B input is {gnd, i_Data(7..1)}
+    mux1: eightBitMux2to1
+        PORT MAP (
+            i_A   => i_Data,
+            i_B   => gnd & i_Data(7 downto 1), 
+            i_Sel => i_Shift(0),
+            o_Out => w_Layer1
+        );
+
+    -- Layer 2: Shift right by 2 bits if i_Shift(1) is '1'
+    -- B input is {gnd, gnd, w_Layer1(7..2)}
+    mux2: eightBitMux2to1
+        PORT MAP (
+            i_A   => w_Layer1,
+            i_B   => "00" & w_Layer1(7 downto 2),
+            i_Sel => i_Shift(1),
+            o_Out => w_Layer2
+        );
+
+    -- Layer 3: Shift right by 4 bits if i_Shift(2) is '1'
+    -- B input is {gnd, gnd, gnd, gnd, w_Layer2(7..4)}
+    mux3: eightBitMux2to1
+        PORT MAP (
+            i_A   => w_Layer2,
+            i_B   => "0000" & w_Layer2(7 downto 4),
+            i_Sel => i_Shift(2),
+            o_Out => o_Data
+        );
+
+END structural;

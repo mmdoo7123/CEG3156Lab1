@@ -1,0 +1,45 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY roundingHardware IS
+    PORT(
+        i_SigIn      : IN  STD_LOGIC_VECTOR(8 downto 0); -- 9-bit normalized significand
+        i_Round      : IN  STD_LOGIC;                    -- Control signal to trigger +1
+        o_Mantissa   : OUT STD_LOGIC_VECTOR(7 downto 0); -- Final 8-bit stored mantissa
+        o_CarryOut   : OUT STD_LOGIC                     -- Required if rounding causes a new overflow
+    );
+END roundingHardware;
+
+ARCHITECTURE structural OF roundingHardware IS
+    SIGNAL w_roundOperand : STD_LOGIC_VECTOR(8 downto 0);
+    SIGNAL w_roundedSig   : STD_LOGIC_VECTOR(8 downto 0);
+    SIGNAL gnd            : STD_LOGIC := '0';
+
+    -- Reusing the 9-bit adder logic developed for the Big ALU
+    COMPONENT nineBitAdder
+    PORT(
+        i_Ai, i_Bi  : IN  STD_LOGIC_VECTOR(8 downto 0);
+        i_CarryIn   : IN  STD_LOGIC;
+        o_Sum       : OUT STD_LOGIC_VECTOR(8 downto 0);
+        o_CarryOut  : OUT STD_LOGIC);
+    END COMPONENT;
+
+BEGIN
+    -- If rounding is needed, we add 000000001 to the significand
+    w_roundOperand <= "00000000" & i_Round;
+
+    -- Structural Adder to perform the rounding increment
+    round_adder: nineBitAdder
+        PORT MAP (
+            i_Ai       => i_SigIn,
+            i_Bi       => w_roundOperand,
+            i_CarryIn  => gnd,
+            o_Sum      => w_roundedSig,
+            o_CarryOut => o_CarryOut
+        );
+
+    -- Per IEEE standard and lab intro: The leading '1' is implicit [cite: 45, 60]
+    -- We discard the MSB (bit 8) and output the remaining 8 bits [cite: 59, 79]
+    o_Mantissa <= w_roundedSig(7 downto 0);
+
+END structural;

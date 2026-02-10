@@ -1,0 +1,55 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY fpAddController IS
+    PORT(
+        i_clock, i_resetBar : IN  STD_LOGIC;
+        i_start             : IN  STD_LOGIC;
+        i_zeroC             : IN  STD_LOGIC; -- From Down-Counter status [cite: 353]
+        o_loadInputs        : OUT STD_LOGIC; -- Load A and B into registers [cite: 338, 340]
+        o_loadCounter       : OUT STD_LOGIC; -- Load ExpDiff into counter [cite: 351]
+        o_shiftEn           : OUT STD_LOGIC; -- Enable Alignment Shifter [cite: 360]
+        o_decCounter        : OUT STD_LOGIC; -- Decrement Alignment Counter [cite: 351]
+        o_loadBigALU        : OUT STD_LOGIC  -- Pulse to trigger addition stage
+    );
+END fpAddController;
+
+ARCHITECTURE structural OF fpAddController IS
+    -- State signals (One Flip-Flop per State) [cite: 177, 182]
+    SIGNAL s0, s1, s2, s3 : STD_LOGIC;
+    SIGNAL d0, d1, d2, d3 : STD_LOGIC;
+
+    COMPONENT enARdFF_2
+        PORT(
+            i_resetBar : IN  STD_LOGIC;
+            i_d        : IN  STD_LOGIC;
+            i_enable   : IN  STD_LOGIC;
+            i_clock    : IN  STD_LOGIC;
+            o_q, o_qBar: OUT STD_LOGIC);
+    END COMPONENT;
+
+BEGIN
+    -- State Transitions Logic [cite: 184]
+    -- S0: Idle/Reset State
+    d0 <= NOT i_start;
+    -- S1: Initialization (Load Inputs and Counter)
+    d1 <= i_start AND s0;
+    -- S2: Alignment Loop (Shift and Decrement)
+    d2 <= (s1 AND NOT i_zeroC) OR (s2 AND NOT i_zeroC);
+    -- S3: Addition (Big ALU Stage)
+    d3 <= (s1 AND i_zeroC) OR (s2 AND i_zeroC);
+
+    -- State Flip-Flops [cite: 179, 182]
+    state0: enARdFF_2 PORT MAP(i_resetBar, d0, '1', i_clock, s0, OPEN);
+    state1: enARdFF_2 PORT MAP(i_resetBar, d1, '1', i_clock, s1, OPEN);
+    state2: enARdFF_2 PORT MAP(i_resetBar, d2, '1', i_clock, s2, OPEN);
+    state3: enARdFF_2 PORT MAP(i_resetBar, d3, '1', i_clock, s3, OPEN);
+
+    -- Control Signal Output Logic (RTN mappings) [cite: 130, 184]
+    o_loadInputs  <= s1; -- Load registers in State 1 [cite: 301]
+    o_loadCounter <= s1; -- Load Exponent Difference into counter [cite: 303]
+    o_shiftEn     <= s2; -- Shift significand while in State 2 [cite: 322]
+    o_decCounter  <= s2; -- Decrement counter while in State 2 [cite: 321]
+    o_loadBigALU  <= s3; -- Trigger the Big ALU stage [cite: 324]
+
+END structural;

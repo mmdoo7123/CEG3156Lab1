@@ -1,0 +1,65 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY exponentIncrementer IS
+    PORT(
+        i_clock     : IN  STD_LOGIC;
+        i_resetBar  : IN  STD_LOGIC;
+        i_load      : IN  STD_LOGIC; -- Initial load from Small ALU
+        i_inc       : IN  STD_LOGIC; -- Triggered by Big ALU carry-out
+        i_dec       : IN  STD_LOGIC; -- Triggered by leading zero
+        i_expIn     : IN  STD_LOGIC_VECTOR(6 downto 0);
+        o_expOut    : OUT STD_LOGIC_VECTOR(6 downto 0)
+    );
+END exponentIncrementer;
+
+ARCHITECTURE structural OF exponentIncrementer IS
+    -- Using your generic components
+    COMPONENT genericAdder IS
+        GENERIC (n : integer := 7);
+        PORT (i_Ai, i_Bi : IN STD_LOGIC_VECTOR(n-1 downto 0); i_CarryIn : IN STD_LOGIC; o_Sum : OUT STD_LOGIC_VECTOR(n-1 downto 0));
+    END COMPONENT;
+
+    COMPONENT genericMux2to1 IS
+        GENERIC (n : integer := 7);
+        PORT (i_A, i_B : IN STD_LOGIC_VECTOR(n-1 downto 0); i_Sel : IN STD_LOGIC; o_Out : OUT STD_LOGIC_VECTOR(n-1 downto 0));
+    END COMPONENT;
+
+    COMPONENT genericRegister IS
+        GENERIC (n : integer := 7);
+        PORT (i_clock, i_resetBar, i_load : IN STD_LOGIC; i_data : IN STD_LOG_VECTOR(n-1 downto 0); o_q : OUT STD_LOG_VECTOR(n-1 downto 0));
+    END COMPONENT;
+
+    SIGNAL w_currentExp, w_nextExp : STD_LOG_VECTOR(6 downto 0);
+    SIGNAL w_adjResult, w_muxResult : STD_LOG_VECTOR(6 downto 0);
+    SIGNAL w_adjVal : STD_LOG_VECTOR(6 downto 0);
+
+BEGIN
+    -- 1. Determine Adjustment (+1 or -1)
+    -- Using i_inc to pick "0000001" or i_dec to pick "1111111" (2's comp of -1)
+    w_adjVal <= "0000001" WHEN i_inc = '1' ELSE "1111111";
+
+    -- 2. Adder for Adjustment
+    adjuster: genericAdder
+        GENERIC MAP (n => 7)
+        PORT MAP(i_Ai => w_currentExp, i_Bi => w_adjVal, i_CarryIn => '0', o_Sum => w_adjResult);
+
+    -- 3. Select between Initial Load and Adjusted Value
+    mux_sel: genericMux2to1
+        GENERIC MAP (n => 7)
+        PORT MAP(i_A => w_adjResult, i_B => i_expIn, i_Sel => i_load, o_Out => w_muxResult);
+
+    -- 4. Storage Register
+    exp_reg: genericRegister
+        GENERIC MAP (n => 7)
+        PORT MAP(
+            i_clock    => i_clock,
+            i_resetBar => i_resetBar,
+            i_load     => (i_load OR i_inc OR i_dec),
+            i_data     => w_muxResult,
+            o_q        => w_currentExp
+        );
+
+    o_expOut <= w_currentExp;
+
+END structural;

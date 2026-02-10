@@ -1,0 +1,2336 @@
+|adder
+s0 <= ControlPathAdder:inst2.o_S0
+Gclock => ControlPathAdder:inst2.i_clock
+Gclock => topaddnew:inst.Gclock
+resetbar => ControlPathAdder:inst2.i_resetBar
+resetbar => topaddnew:inst.resetBar
+s1 <= ControlPathAdder:inst2.o_S1
+s2 <= ControlPathAdder:inst2.o_S2
+s3 <= ControlPathAdder:inst2.o_S3
+s4 <= ControlPathAdder:inst2.o_S4
+s5 <= ControlPathAdder:inst2.o_S5
+s6 <= ControlPathAdder:inst2.o_S6
+s7 <= ControlPathAdder:inst2.o_S7
+ExponentOut[0] <= topaddnew:inst.ExponentOut[0]
+ExponentOut[1] <= topaddnew:inst.ExponentOut[1]
+ExponentOut[2] <= topaddnew:inst.ExponentOut[2]
+ExponentOut[3] <= topaddnew:inst.ExponentOut[3]
+ExponentOut[4] <= topaddnew:inst.ExponentOut[4]
+ExponentOut[5] <= topaddnew:inst.ExponentOut[5]
+ExponentOut[6] <= topaddnew:inst.ExponentOut[6]
+MantissaOut[0] <= topaddnew:inst.MantissaOut[0]
+MantissaOut[1] <= topaddnew:inst.MantissaOut[1]
+MantissaOut[2] <= topaddnew:inst.MantissaOut[2]
+MantissaOut[3] <= topaddnew:inst.MantissaOut[3]
+MantissaOut[4] <= topaddnew:inst.MantissaOut[4]
+MantissaOut[5] <= topaddnew:inst.MantissaOut[5]
+MantissaOut[6] <= topaddnew:inst.MantissaOut[6]
+MantissaOut[7] <= topaddnew:inst.MantissaOut[7]
+
+
+|adder|ControlPathAdder:inst2
+i_clock => enASdFF_2:FF0.i_clock
+i_clock => enARdFF_2:FF1.i_clock
+i_clock => enARdFF_2:FF2.i_clock
+i_clock => enARdFF_2:FF3.i_clock
+i_clock => enARdFF_2:FF4.i_clock
+i_clock => enARdFF_2:FF5.i_clock
+i_clock => enARdFF_2:FF6.i_clock
+i_clock => enARdFF_2:FF7.i_clock
+i_resetBar => enASdFF_2:FF0.i_resetBar
+i_resetBar => enARdFF_2:FF1.i_resetBar
+i_resetBar => enARdFF_2:FF2.i_resetBar
+i_resetBar => enARdFF_2:FF3.i_resetBar
+i_resetBar => enARdFF_2:FF4.i_resetBar
+i_resetBar => enARdFF_2:FF5.i_resetBar
+i_resetBar => enARdFF_2:FF6.i_resetBar
+i_resetBar => enARdFF_2:FF7.i_resetBar
+i_gt9 => d_S1.IN1
+i_gt9 => d_S2.IN1
+i_gt2 => d_S5.IN1
+i_gt2 => d_S7.IN1
+i_diff_eq_0 => d_S4.IN1
+i_diff_eq_0 => d_S4.IN1
+i_diff_eq_0 => d_S2.IN1
+i_diff_eq_0 => d_S3.IN1
+i_AGTB => o_ClearB.IN1
+i_AGTB => o_ShiftB.IN1
+i_AGTB => o_ClearA.IN1
+i_AGTB => o_ShiftA.IN1
+i_AGTB => o_Sel_Mux.IN1
+o_LoadExp_Mant_Cin <= enASdFF_2:FF0.o_q
+o_ClearA <= o_ClearA.DB_MAX_OUTPUT_PORT_TYPE
+o_ClearB <= o_ClearB.DB_MAX_OUTPUT_PORT_TYPE
+loadcounter <= enARdFF_2:FF2.o_q
+count <= enARdFF_2:FF3.o_q
+o_ShiftA <= o_ShiftA.DB_MAX_OUTPUT_PORT_TYPE
+o_ShiftB <= o_ShiftB.DB_MAX_OUTPUT_PORT_TYPE
+o_Sel_Mux <= o_Sel_Mux.DB_MAX_OUTPUT_PORT_TYPE
+o_Loadinc <= enARdFF_2:FF5.o_q
+o_LoadShift <= enARdFF_2:FF5.o_q
+o_Inc <= enARdFF_2:FF6.o_q
+o_Shift <= enARdFF_2:FF6.o_q
+o_const_2[0] <= <GND>
+o_const_2[1] <= <VCC>
+o_const_2[2] <= <GND>
+o_const_2[3] <= <GND>
+o_const_2[4] <= <GND>
+o_const_2[5] <= <GND>
+o_const_2[6] <= <GND>
+o_const_2[7] <= <GND>
+o_const_2[8] <= <GND>
+o_const_9[0] <= <VCC>
+o_const_9[1] <= <GND>
+o_const_9[2] <= <GND>
+o_const_9[3] <= <VCC>
+o_const_9[4] <= <GND>
+o_const_9[5] <= <GND>
+o_const_9[6] <= <GND>
+o_S0 <= enASdFF_2:FF0.o_q
+o_S1 <= enARdFF_2:FF1.o_q
+o_S2 <= enARdFF_2:FF2.o_q
+o_S3 <= enARdFF_2:FF3.o_q
+o_S4 <= enARdFF_2:FF4.o_q
+o_S5 <= enARdFF_2:FF5.o_q
+o_S6 <= enARdFF_2:FF6.o_q
+o_S7 <= enARdFF_2:FF7.o_q
+
+
+|adder|ControlPathAdder:inst2|enASdFF_2:FF0
+i_resetBar => int_q.PRESET
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|ControlPathAdder:inst2|enARdFF_2:FF1
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|ControlPathAdder:inst2|enARdFF_2:FF2
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|ControlPathAdder:inst2|enARdFF_2:FF3
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|ControlPathAdder:inst2|enARdFF_2:FF4
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|ControlPathAdder:inst2|enARdFF_2:FF5
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|ControlPathAdder:inst2|enARdFF_2:FF6
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|ControlPathAdder:inst2|enARdFF_2:FF7
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst
+AGTB <= smallALU:inst2.o_AGtB
+Gclock => genericRegister:inst.i_clock
+Gclock => genericRegister:inst1.i_clock
+Gclock => SignificandReg:inst8.i_clock
+Gclock => SignificandReg:inst7.i_clock
+Gclock => Counter:inst5.i_clock
+Gclock => IncReg:inst13.clk
+Gclock => shiftRegister9:inst12.i_clock
+resetBar => genericRegister:inst.i_resetBar
+resetBar => genericRegister:inst1.i_resetBar
+resetBar => SignificandReg:inst8.i_resetBar
+resetBar => SignificandReg:inst7.i_resetBar
+resetBar => Counter:inst5.i_resetBar
+resetBar => IncReg:inst13.resetBar
+resetBar => shiftRegister9:inst12.i_resetBar
+loadExp => genericRegister:inst.i_load
+loadExp => genericRegister:inst1.i_load
+ExpA[0] => genericRegister:inst.i_data[0]
+ExpA[0] => genericMux2to1:inst4.i_A[0]
+ExpA[1] => genericRegister:inst.i_data[1]
+ExpA[1] => genericMux2to1:inst4.i_A[1]
+ExpA[2] => genericRegister:inst.i_data[2]
+ExpA[2] => genericMux2to1:inst4.i_A[2]
+ExpA[3] => genericRegister:inst.i_data[3]
+ExpA[3] => genericMux2to1:inst4.i_A[3]
+ExpA[4] => genericRegister:inst.i_data[4]
+ExpA[4] => genericMux2to1:inst4.i_A[4]
+ExpA[5] => genericRegister:inst.i_data[5]
+ExpA[5] => genericMux2to1:inst4.i_A[5]
+ExpA[6] => genericRegister:inst.i_data[6]
+ExpA[6] => genericMux2to1:inst4.i_A[6]
+ExpB[0] => genericRegister:inst1.i_data[0]
+ExpB[0] => genericMux2to1:inst4.i_B[0]
+ExpB[1] => genericRegister:inst1.i_data[1]
+ExpB[1] => genericMux2to1:inst4.i_B[1]
+ExpB[2] => genericRegister:inst1.i_data[2]
+ExpB[2] => genericMux2to1:inst4.i_B[2]
+ExpB[3] => genericRegister:inst1.i_data[3]
+ExpB[3] => genericMux2to1:inst4.i_B[3]
+ExpB[4] => genericRegister:inst1.i_data[4]
+ExpB[4] => genericMux2to1:inst4.i_B[4]
+ExpB[5] => genericRegister:inst1.i_data[5]
+ExpB[5] => genericMux2to1:inst4.i_B[5]
+ExpB[6] => genericRegister:inst1.i_data[6]
+ExpB[6] => genericMux2to1:inst4.i_B[6]
+EdiffGT9 <= genericComparator:inst6.o_GT
+nine[0] => genericComparator:inst6.i_Bi[0]
+nine[1] => genericComparator:inst6.i_Bi[1]
+nine[2] => genericComparator:inst6.i_Bi[2]
+nine[3] => genericComparator:inst6.i_Bi[3]
+nine[4] => genericComparator:inst6.i_Bi[4]
+nine[5] => genericComparator:inst6.i_Bi[5]
+nine[6] => genericComparator:inst6.i_Bi[6]
+Cout <= genericAdder:inst9.o_CarryOut
+LoadMantissas => SignificandReg:inst8.i_load
+LoadMantissas => SignificandReg:inst7.i_load
+shiftB => SignificandReg:inst8.i_shift
+clearB => SignificandReg:inst8.i_clear
+MantissaB[0] => SignificandReg:inst8.i_data[0]
+MantissaB[1] => SignificandReg:inst8.i_data[1]
+MantissaB[2] => SignificandReg:inst8.i_data[2]
+MantissaB[3] => SignificandReg:inst8.i_data[3]
+MantissaB[4] => SignificandReg:inst8.i_data[4]
+MantissaB[5] => SignificandReg:inst8.i_data[5]
+MantissaB[6] => SignificandReg:inst8.i_data[6]
+MantissaB[7] => SignificandReg:inst8.i_data[7]
+shiftA => SignificandReg:inst7.i_shift
+clearA => SignificandReg:inst7.i_clear
+MantissaA[0] => SignificandReg:inst7.i_data[0]
+MantissaA[1] => SignificandReg:inst7.i_data[1]
+MantissaA[2] => SignificandReg:inst7.i_data[2]
+MantissaA[3] => SignificandReg:inst7.i_data[3]
+MantissaA[4] => SignificandReg:inst7.i_data[4]
+MantissaA[5] => SignificandReg:inst7.i_data[5]
+MantissaA[6] => SignificandReg:inst7.i_data[6]
+MantissaA[7] => SignificandReg:inst7.i_data[7]
+GT2 <= genericComparator:inst11.o_GT
+EdiffEQ0 <= Counter:inst5.o_zero
+loadcounter => Counter:inst5.i_load
+count => Counter:inst5.i_decrement
+ExponentOut[0] <= IncReg:inst13.o_REz[0]
+ExponentOut[1] <= IncReg:inst13.o_REz[1]
+ExponentOut[2] <= IncReg:inst13.o_REz[2]
+ExponentOut[3] <= IncReg:inst13.o_REz[3]
+ExponentOut[4] <= IncReg:inst13.o_REz[4]
+ExponentOut[5] <= IncReg:inst13.o_REz[5]
+ExponentOut[6] <= IncReg:inst13.o_REz[6]
+loadinc => IncReg:inst13.i_loadinc
+inc => IncReg:inst13.i_inc
+SelAorB => genericMux2to1:inst4.i_Sel
+MantissaOut[0] <= shiftRegister9:inst12.o_q[0]
+MantissaOut[1] <= shiftRegister9:inst12.o_q[1]
+MantissaOut[2] <= shiftRegister9:inst12.o_q[2]
+MantissaOut[3] <= shiftRegister9:inst12.o_q[3]
+MantissaOut[4] <= shiftRegister9:inst12.o_q[4]
+MantissaOut[5] <= shiftRegister9:inst12.o_q[5]
+MantissaOut[6] <= shiftRegister9:inst12.o_q[6]
+MantissaOut[7] <= shiftRegister9:inst12.o_q[7]
+load => shiftRegister9:inst12.i_load
+shift => shiftRegister9:inst12.i_shift
+two[0] => ~NO_FANOUT~
+two[1] => ~NO_FANOUT~
+two[2] => ~NO_FANOUT~
+two[3] => ~NO_FANOUT~
+two[4] => ~NO_FANOUT~
+two[5] => ~NO_FANOUT~
+two[6] => ~NO_FANOUT~
+two[7] => ~NO_FANOUT~
+two[8] => ~NO_FANOUT~
+
+
+|adder|topaddnew:inst|smallALU:inst2
+i_ExpA[0] => genericComparator:comp_inst.i_Ai[0]
+i_ExpA[0] => genericAdder:sub_inst.i_Ai[0]
+i_ExpA[1] => genericComparator:comp_inst.i_Ai[1]
+i_ExpA[1] => genericAdder:sub_inst.i_Ai[1]
+i_ExpA[2] => genericComparator:comp_inst.i_Ai[2]
+i_ExpA[2] => genericAdder:sub_inst.i_Ai[2]
+i_ExpA[3] => genericComparator:comp_inst.i_Ai[3]
+i_ExpA[3] => genericAdder:sub_inst.i_Ai[3]
+i_ExpA[4] => genericComparator:comp_inst.i_Ai[4]
+i_ExpA[4] => genericAdder:sub_inst.i_Ai[4]
+i_ExpA[5] => genericComparator:comp_inst.i_Ai[5]
+i_ExpA[5] => genericAdder:sub_inst.i_Ai[5]
+i_ExpA[6] => genericComparator:comp_inst.i_Ai[6]
+i_ExpA[6] => genericAdder:sub_inst.i_Ai[6]
+i_ExpB[0] => genericComparator:comp_inst.i_Bi[0]
+i_ExpB[0] => genericAdder:sub_inst.i_Bi[0]
+i_ExpB[1] => genericComparator:comp_inst.i_Bi[1]
+i_ExpB[1] => genericAdder:sub_inst.i_Bi[1]
+i_ExpB[2] => genericComparator:comp_inst.i_Bi[2]
+i_ExpB[2] => genericAdder:sub_inst.i_Bi[2]
+i_ExpB[3] => genericComparator:comp_inst.i_Bi[3]
+i_ExpB[3] => genericAdder:sub_inst.i_Bi[3]
+i_ExpB[4] => genericComparator:comp_inst.i_Bi[4]
+i_ExpB[4] => genericAdder:sub_inst.i_Bi[4]
+i_ExpB[5] => genericComparator:comp_inst.i_Bi[5]
+i_ExpB[5] => genericAdder:sub_inst.i_Bi[5]
+i_ExpB[6] => genericComparator:comp_inst.i_Bi[6]
+i_ExpB[6] => genericAdder:sub_inst.i_Bi[6]
+o_ExpDiff[0] <= genericAdder:sub_inst.o_Sum[0]
+o_ExpDiff[1] <= genericAdder:sub_inst.o_Sum[1]
+o_ExpDiff[2] <= genericAdder:sub_inst.o_Sum[2]
+o_ExpDiff[3] <= genericAdder:sub_inst.o_Sum[3]
+o_ExpDiff[4] <= genericAdder:sub_inst.o_Sum[4]
+o_ExpDiff[5] <= genericAdder:sub_inst.o_Sum[5]
+o_ExpDiff[6] <= genericAdder:sub_inst.o_Sum[6]
+o_AEqB <= genericComparator:comp_inst.o_EQ
+o_AGtB <= genericComparator:comp_inst.o_GT
+o_ALtB <= genericComparator:comp_inst.o_LT
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericComparator:comp_inst
+i_Ai[0] => oneBitComparator:gen_comp:0:comp.i_Ai
+i_Ai[1] => oneBitComparator:gen_comp:1:comp.i_Ai
+i_Ai[2] => oneBitComparator:gen_comp:2:comp.i_Ai
+i_Ai[3] => oneBitComparator:gen_comp:3:comp.i_Ai
+i_Ai[4] => oneBitComparator:gen_comp:4:comp.i_Ai
+i_Ai[5] => oneBitComparator:gen_comp:5:comp.i_Ai
+i_Ai[6] => oneBitComparator:comp_msb.i_Ai
+i_Bi[0] => oneBitComparator:gen_comp:0:comp.i_Bi
+i_Bi[1] => oneBitComparator:gen_comp:1:comp.i_Bi
+i_Bi[2] => oneBitComparator:gen_comp:2:comp.i_Bi
+i_Bi[3] => oneBitComparator:gen_comp:3:comp.i_Bi
+i_Bi[4] => oneBitComparator:gen_comp:4:comp.i_Bi
+i_Bi[5] => oneBitComparator:gen_comp:5:comp.i_Bi
+i_Bi[6] => oneBitComparator:comp_msb.i_Bi
+o_GT <= oneBitComparator:gen_comp:0:comp.o_GT
+o_LT <= oneBitComparator:gen_comp:0:comp.o_LT
+o_EQ <= o_EQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericComparator:comp_inst|oneBitComparator:comp_msb
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericComparator:comp_inst|oneBitComparator:\gen_comp:5:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericComparator:comp_inst|oneBitComparator:\gen_comp:4:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericComparator:comp_inst|oneBitComparator:\gen_comp:3:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericComparator:comp_inst|oneBitComparator:\gen_comp:2:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericComparator:comp_inst|oneBitComparator:\gen_comp:1:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericComparator:comp_inst|oneBitComparator:\gen_comp:0:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericAdder:sub_inst
+i_Ai[0] => oneBitAdder:add0.i_Ai
+i_Ai[1] => oneBitAdder:gen_adder:1:add_inst.i_Ai
+i_Ai[2] => oneBitAdder:gen_adder:2:add_inst.i_Ai
+i_Ai[3] => oneBitAdder:gen_adder:3:add_inst.i_Ai
+i_Ai[4] => oneBitAdder:gen_adder:4:add_inst.i_Ai
+i_Ai[5] => oneBitAdder:gen_adder:5:add_inst.i_Ai
+i_Ai[6] => oneBitAdder:gen_adder:6:add_inst.i_Ai
+i_Bi[0] => oneBitAdder:add0.i_Bi
+i_Bi[1] => oneBitAdder:gen_adder:1:add_inst.i_Bi
+i_Bi[2] => oneBitAdder:gen_adder:2:add_inst.i_Bi
+i_Bi[3] => oneBitAdder:gen_adder:3:add_inst.i_Bi
+i_Bi[4] => oneBitAdder:gen_adder:4:add_inst.i_Bi
+i_Bi[5] => oneBitAdder:gen_adder:5:add_inst.i_Bi
+i_Bi[6] => oneBitAdder:gen_adder:6:add_inst.i_Bi
+i_CarryIn => oneBitAdder:add0.i_CarryIn
+o_Sum[0] <= oneBitAdder:add0.o_Sum
+o_Sum[1] <= oneBitAdder:gen_adder:1:add_inst.o_Sum
+o_Sum[2] <= oneBitAdder:gen_adder:2:add_inst.o_Sum
+o_Sum[3] <= oneBitAdder:gen_adder:3:add_inst.o_Sum
+o_Sum[4] <= oneBitAdder:gen_adder:4:add_inst.o_Sum
+o_Sum[5] <= oneBitAdder:gen_adder:5:add_inst.o_Sum
+o_Sum[6] <= oneBitAdder:gen_adder:6:add_inst.o_Sum
+o_CarryOut <= oneBitAdder:gen_adder:6:add_inst.o_CarryOut
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericAdder:sub_inst|oneBitAdder:add0
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericAdder:sub_inst|oneBitAdder:\gen_adder:1:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericAdder:sub_inst|oneBitAdder:\gen_adder:2:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericAdder:sub_inst|oneBitAdder:\gen_adder:3:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericAdder:sub_inst|oneBitAdder:\gen_adder:4:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericAdder:sub_inst|oneBitAdder:\gen_adder:5:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|smallALU:inst2|genericAdder:sub_inst|oneBitAdder:\gen_adder:6:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst
+i_clock => enARdFF_2:gen_reg:6:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:5:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:4:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:3:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:2:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:1:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:0:bit_inst.i_clock
+i_resetBar => enARdFF_2:gen_reg:6:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:5:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:4:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:3:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:2:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:1:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:0:bit_inst.i_resetBar
+i_load => enARdFF_2:gen_reg:6:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:5:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:4:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:3:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:2:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:1:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:0:bit_inst.i_enable
+i_data[0] => enARdFF_2:gen_reg:0:bit_inst.i_d
+i_data[1] => enARdFF_2:gen_reg:1:bit_inst.i_d
+i_data[2] => enARdFF_2:gen_reg:2:bit_inst.i_d
+i_data[3] => enARdFF_2:gen_reg:3:bit_inst.i_d
+i_data[4] => enARdFF_2:gen_reg:4:bit_inst.i_d
+i_data[5] => enARdFF_2:gen_reg:5:bit_inst.i_d
+i_data[6] => enARdFF_2:gen_reg:6:bit_inst.i_d
+o_q[0] <= enARdFF_2:gen_reg:0:bit_inst.o_q
+o_q[1] <= enARdFF_2:gen_reg:1:bit_inst.o_q
+o_q[2] <= enARdFF_2:gen_reg:2:bit_inst.o_q
+o_q[3] <= enARdFF_2:gen_reg:3:bit_inst.o_q
+o_q[4] <= enARdFF_2:gen_reg:4:bit_inst.o_q
+o_q[5] <= enARdFF_2:gen_reg:5:bit_inst.o_q
+o_q[6] <= enARdFF_2:gen_reg:6:bit_inst.o_q
+
+
+|adder|topaddnew:inst|genericRegister:inst|enARdFF_2:\gen_reg:6:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst|enARdFF_2:\gen_reg:5:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst|enARdFF_2:\gen_reg:4:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst|enARdFF_2:\gen_reg:3:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst|enARdFF_2:\gen_reg:2:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst|enARdFF_2:\gen_reg:1:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst|enARdFF_2:\gen_reg:0:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst1
+i_clock => enARdFF_2:gen_reg:6:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:5:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:4:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:3:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:2:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:1:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:0:bit_inst.i_clock
+i_resetBar => enARdFF_2:gen_reg:6:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:5:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:4:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:3:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:2:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:1:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:0:bit_inst.i_resetBar
+i_load => enARdFF_2:gen_reg:6:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:5:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:4:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:3:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:2:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:1:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:0:bit_inst.i_enable
+i_data[0] => enARdFF_2:gen_reg:0:bit_inst.i_d
+i_data[1] => enARdFF_2:gen_reg:1:bit_inst.i_d
+i_data[2] => enARdFF_2:gen_reg:2:bit_inst.i_d
+i_data[3] => enARdFF_2:gen_reg:3:bit_inst.i_d
+i_data[4] => enARdFF_2:gen_reg:4:bit_inst.i_d
+i_data[5] => enARdFF_2:gen_reg:5:bit_inst.i_d
+i_data[6] => enARdFF_2:gen_reg:6:bit_inst.i_d
+o_q[0] <= enARdFF_2:gen_reg:0:bit_inst.o_q
+o_q[1] <= enARdFF_2:gen_reg:1:bit_inst.o_q
+o_q[2] <= enARdFF_2:gen_reg:2:bit_inst.o_q
+o_q[3] <= enARdFF_2:gen_reg:3:bit_inst.o_q
+o_q[4] <= enARdFF_2:gen_reg:4:bit_inst.o_q
+o_q[5] <= enARdFF_2:gen_reg:5:bit_inst.o_q
+o_q[6] <= enARdFF_2:gen_reg:6:bit_inst.o_q
+
+
+|adder|topaddnew:inst|genericRegister:inst1|enARdFF_2:\gen_reg:6:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst1|enARdFF_2:\gen_reg:5:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst1|enARdFF_2:\gen_reg:4:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst1|enARdFF_2:\gen_reg:3:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst1|enARdFF_2:\gen_reg:2:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst1|enARdFF_2:\gen_reg:1:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericRegister:inst1|enARdFF_2:\gen_reg:0:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst6
+i_Ai[0] => oneBitComparator:gen_comp:0:comp.i_Ai
+i_Ai[1] => oneBitComparator:gen_comp:1:comp.i_Ai
+i_Ai[2] => oneBitComparator:gen_comp:2:comp.i_Ai
+i_Ai[3] => oneBitComparator:gen_comp:3:comp.i_Ai
+i_Ai[4] => oneBitComparator:gen_comp:4:comp.i_Ai
+i_Ai[5] => oneBitComparator:gen_comp:5:comp.i_Ai
+i_Ai[6] => oneBitComparator:comp_msb.i_Ai
+i_Bi[0] => oneBitComparator:gen_comp:0:comp.i_Bi
+i_Bi[1] => oneBitComparator:gen_comp:1:comp.i_Bi
+i_Bi[2] => oneBitComparator:gen_comp:2:comp.i_Bi
+i_Bi[3] => oneBitComparator:gen_comp:3:comp.i_Bi
+i_Bi[4] => oneBitComparator:gen_comp:4:comp.i_Bi
+i_Bi[5] => oneBitComparator:gen_comp:5:comp.i_Bi
+i_Bi[6] => oneBitComparator:comp_msb.i_Bi
+o_GT <= oneBitComparator:gen_comp:0:comp.o_GT
+o_LT <= oneBitComparator:gen_comp:0:comp.o_LT
+o_EQ <= o_EQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst6|oneBitComparator:comp_msb
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst6|oneBitComparator:\gen_comp:5:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst6|oneBitComparator:\gen_comp:4:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst6|oneBitComparator:\gen_comp:3:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst6|oneBitComparator:\gen_comp:2:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst6|oneBitComparator:\gen_comp:1:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst6|oneBitComparator:\gen_comp:0:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericAdder:inst9
+i_Ai[0] => oneBitAdder:add0.i_Ai
+i_Ai[1] => oneBitAdder:gen_adder:1:add_inst.i_Ai
+i_Ai[2] => oneBitAdder:gen_adder:2:add_inst.i_Ai
+i_Ai[3] => oneBitAdder:gen_adder:3:add_inst.i_Ai
+i_Ai[4] => oneBitAdder:gen_adder:4:add_inst.i_Ai
+i_Ai[5] => oneBitAdder:gen_adder:5:add_inst.i_Ai
+i_Ai[6] => oneBitAdder:gen_adder:6:add_inst.i_Ai
+i_Ai[7] => oneBitAdder:gen_adder:7:add_inst.i_Ai
+i_Ai[8] => oneBitAdder:gen_adder:8:add_inst.i_Ai
+i_Bi[0] => oneBitAdder:add0.i_Bi
+i_Bi[1] => oneBitAdder:gen_adder:1:add_inst.i_Bi
+i_Bi[2] => oneBitAdder:gen_adder:2:add_inst.i_Bi
+i_Bi[3] => oneBitAdder:gen_adder:3:add_inst.i_Bi
+i_Bi[4] => oneBitAdder:gen_adder:4:add_inst.i_Bi
+i_Bi[5] => oneBitAdder:gen_adder:5:add_inst.i_Bi
+i_Bi[6] => oneBitAdder:gen_adder:6:add_inst.i_Bi
+i_Bi[7] => oneBitAdder:gen_adder:7:add_inst.i_Bi
+i_Bi[8] => oneBitAdder:gen_adder:8:add_inst.i_Bi
+i_CarryIn => oneBitAdder:add0.i_CarryIn
+o_Sum[0] <= oneBitAdder:add0.o_Sum
+o_Sum[1] <= oneBitAdder:gen_adder:1:add_inst.o_Sum
+o_Sum[2] <= oneBitAdder:gen_adder:2:add_inst.o_Sum
+o_Sum[3] <= oneBitAdder:gen_adder:3:add_inst.o_Sum
+o_Sum[4] <= oneBitAdder:gen_adder:4:add_inst.o_Sum
+o_Sum[5] <= oneBitAdder:gen_adder:5:add_inst.o_Sum
+o_Sum[6] <= oneBitAdder:gen_adder:6:add_inst.o_Sum
+o_Sum[7] <= oneBitAdder:gen_adder:7:add_inst.o_Sum
+o_Sum[8] <= oneBitAdder:gen_adder:8:add_inst.o_Sum
+o_CarryOut <= oneBitAdder:gen_adder:8:add_inst.o_CarryOut
+
+
+|adder|topaddnew:inst|genericAdder:inst9|oneBitAdder:add0
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericAdder:inst9|oneBitAdder:\gen_adder:1:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericAdder:inst9|oneBitAdder:\gen_adder:2:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericAdder:inst9|oneBitAdder:\gen_adder:3:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericAdder:inst9|oneBitAdder:\gen_adder:4:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericAdder:inst9|oneBitAdder:\gen_adder:5:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericAdder:inst9|oneBitAdder:\gen_adder:6:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericAdder:inst9|oneBitAdder:\gen_adder:7:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericAdder:inst9|oneBitAdder:\gen_adder:8:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst8
+i_clock => enARdFF_2:gen_reg:8:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:7:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:6:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:5:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:4:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:3:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:2:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:1:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:0:bit_inst.i_clock
+i_resetBar => enARdFF_2:gen_reg:8:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:7:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:6:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:5:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:4:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:3:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:2:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:1:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:0:bit_inst.i_resetBar
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_enable.IN0
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_enable.IN1
+i_clear => w_d[8].OUTPUTSELECT
+i_clear => w_d[7].OUTPUTSELECT
+i_clear => w_d[6].OUTPUTSELECT
+i_clear => w_d[5].OUTPUTSELECT
+i_clear => w_d[4].OUTPUTSELECT
+i_clear => w_d[3].OUTPUTSELECT
+i_clear => w_d[2].OUTPUTSELECT
+i_clear => w_d[1].OUTPUTSELECT
+i_clear => w_d[0].OUTPUTSELECT
+i_clear => w_enable.IN1
+i_data[0] => w_d.DATAB
+i_data[1] => w_d.DATAB
+i_data[2] => w_d.DATAB
+i_data[3] => w_d.DATAB
+i_data[4] => w_d.DATAB
+i_data[5] => w_d.DATAB
+i_data[6] => w_d.DATAB
+i_data[7] => w_d.DATAB
+o_q[0] <= enARdFF_2:gen_reg:0:bit_inst.o_q
+o_q[1] <= enARdFF_2:gen_reg:1:bit_inst.o_q
+o_q[2] <= enARdFF_2:gen_reg:2:bit_inst.o_q
+o_q[3] <= enARdFF_2:gen_reg:3:bit_inst.o_q
+o_q[4] <= enARdFF_2:gen_reg:4:bit_inst.o_q
+o_q[5] <= enARdFF_2:gen_reg:5:bit_inst.o_q
+o_q[6] <= enARdFF_2:gen_reg:6:bit_inst.o_q
+o_q[7] <= enARdFF_2:gen_reg:7:bit_inst.o_q
+o_q[8] <= enARdFF_2:gen_reg:8:bit_inst.o_q
+
+
+|adder|topaddnew:inst|SignificandReg:inst8|enARdFF_2:\gen_reg:8:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst8|enARdFF_2:\gen_reg:7:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst8|enARdFF_2:\gen_reg:6:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst8|enARdFF_2:\gen_reg:5:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst8|enARdFF_2:\gen_reg:4:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst8|enARdFF_2:\gen_reg:3:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst8|enARdFF_2:\gen_reg:2:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst8|enARdFF_2:\gen_reg:1:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst8|enARdFF_2:\gen_reg:0:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst7
+i_clock => enARdFF_2:gen_reg:8:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:7:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:6:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:5:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:4:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:3:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:2:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:1:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:0:bit_inst.i_clock
+i_resetBar => enARdFF_2:gen_reg:8:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:7:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:6:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:5:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:4:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:3:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:2:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:1:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:0:bit_inst.i_resetBar
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_d.OUTPUTSELECT
+i_load => w_enable.IN0
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_d.OUTPUTSELECT
+i_shift => w_enable.IN1
+i_clear => w_d[8].OUTPUTSELECT
+i_clear => w_d[7].OUTPUTSELECT
+i_clear => w_d[6].OUTPUTSELECT
+i_clear => w_d[5].OUTPUTSELECT
+i_clear => w_d[4].OUTPUTSELECT
+i_clear => w_d[3].OUTPUTSELECT
+i_clear => w_d[2].OUTPUTSELECT
+i_clear => w_d[1].OUTPUTSELECT
+i_clear => w_d[0].OUTPUTSELECT
+i_clear => w_enable.IN1
+i_data[0] => w_d.DATAB
+i_data[1] => w_d.DATAB
+i_data[2] => w_d.DATAB
+i_data[3] => w_d.DATAB
+i_data[4] => w_d.DATAB
+i_data[5] => w_d.DATAB
+i_data[6] => w_d.DATAB
+i_data[7] => w_d.DATAB
+o_q[0] <= enARdFF_2:gen_reg:0:bit_inst.o_q
+o_q[1] <= enARdFF_2:gen_reg:1:bit_inst.o_q
+o_q[2] <= enARdFF_2:gen_reg:2:bit_inst.o_q
+o_q[3] <= enARdFF_2:gen_reg:3:bit_inst.o_q
+o_q[4] <= enARdFF_2:gen_reg:4:bit_inst.o_q
+o_q[5] <= enARdFF_2:gen_reg:5:bit_inst.o_q
+o_q[6] <= enARdFF_2:gen_reg:6:bit_inst.o_q
+o_q[7] <= enARdFF_2:gen_reg:7:bit_inst.o_q
+o_q[8] <= enARdFF_2:gen_reg:8:bit_inst.o_q
+
+
+|adder|topaddnew:inst|SignificandReg:inst7|enARdFF_2:\gen_reg:8:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst7|enARdFF_2:\gen_reg:7:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst7|enARdFF_2:\gen_reg:6:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst7|enARdFF_2:\gen_reg:5:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst7|enARdFF_2:\gen_reg:4:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst7|enARdFF_2:\gen_reg:3:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst7|enARdFF_2:\gen_reg:2:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst7|enARdFF_2:\gen_reg:1:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|SignificandReg:inst7|enARdFF_2:\gen_reg:0:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst11
+i_Ai[0] => oneBitComparator:gen_comp:0:comp.i_Ai
+i_Ai[1] => oneBitComparator:gen_comp:1:comp.i_Ai
+i_Ai[2] => oneBitComparator:gen_comp:2:comp.i_Ai
+i_Ai[3] => oneBitComparator:gen_comp:3:comp.i_Ai
+i_Ai[4] => oneBitComparator:gen_comp:4:comp.i_Ai
+i_Ai[5] => oneBitComparator:gen_comp:5:comp.i_Ai
+i_Ai[6] => oneBitComparator:gen_comp:6:comp.i_Ai
+i_Ai[7] => oneBitComparator:gen_comp:7:comp.i_Ai
+i_Ai[8] => oneBitComparator:comp_msb.i_Ai
+i_Bi[0] => oneBitComparator:gen_comp:0:comp.i_Bi
+i_Bi[1] => oneBitComparator:gen_comp:1:comp.i_Bi
+i_Bi[2] => oneBitComparator:gen_comp:2:comp.i_Bi
+i_Bi[3] => oneBitComparator:gen_comp:3:comp.i_Bi
+i_Bi[4] => oneBitComparator:gen_comp:4:comp.i_Bi
+i_Bi[5] => oneBitComparator:gen_comp:5:comp.i_Bi
+i_Bi[6] => oneBitComparator:gen_comp:6:comp.i_Bi
+i_Bi[7] => oneBitComparator:gen_comp:7:comp.i_Bi
+i_Bi[8] => oneBitComparator:comp_msb.i_Bi
+o_GT <= oneBitComparator:gen_comp:0:comp.o_GT
+o_LT <= oneBitComparator:gen_comp:0:comp.o_LT
+o_EQ <= o_EQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst11|oneBitComparator:comp_msb
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst11|oneBitComparator:\gen_comp:7:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst11|oneBitComparator:\gen_comp:6:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst11|oneBitComparator:\gen_comp:5:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst11|oneBitComparator:\gen_comp:4:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst11|oneBitComparator:\gen_comp:3:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst11|oneBitComparator:\gen_comp:2:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst11|oneBitComparator:\gen_comp:1:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericComparator:inst11|oneBitComparator:\gen_comp:0:comp
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5
+i_clock => genericRegister:count_reg.i_clock
+i_clock => w_valid.CLK
+i_resetBar => genericRegister:count_reg.i_resetBar
+i_resetBar => w_valid.ACLR
+i_load => comb.IN0
+i_load => genericMux2to1:input_mux.i_Sel
+i_load => w_valid.ENA
+i_decrement => comb.IN1
+i_countIn[0] => genericMux2to1:input_mux.i_B[0]
+i_countIn[1] => genericMux2to1:input_mux.i_B[1]
+i_countIn[2] => genericMux2to1:input_mux.i_B[2]
+i_countIn[3] => genericMux2to1:input_mux.i_B[3]
+i_countIn[4] => genericMux2to1:input_mux.i_B[4]
+i_countIn[5] => genericMux2to1:input_mux.i_B[5]
+i_countIn[6] => genericMux2to1:input_mux.i_B[6]
+o_zero <= o_zero.DB_MAX_OUTPUT_PORT_TYPE
+o_val[0] <= genericRegister:count_reg.o_q[0]
+o_val[1] <= genericRegister:count_reg.o_q[1]
+o_val[2] <= genericRegister:count_reg.o_q[2]
+o_val[3] <= genericRegister:count_reg.o_q[3]
+o_val[4] <= genericRegister:count_reg.o_q[4]
+o_val[5] <= genericRegister:count_reg.o_q[5]
+o_val[6] <= genericRegister:count_reg.o_q[6]
+
+
+|adder|topaddnew:inst|Counter:inst5|genericAdder:decrementer
+i_Ai[0] => oneBitAdder:add0.i_Ai
+i_Ai[1] => oneBitAdder:gen_adder:1:add_inst.i_Ai
+i_Ai[2] => oneBitAdder:gen_adder:2:add_inst.i_Ai
+i_Ai[3] => oneBitAdder:gen_adder:3:add_inst.i_Ai
+i_Ai[4] => oneBitAdder:gen_adder:4:add_inst.i_Ai
+i_Ai[5] => oneBitAdder:gen_adder:5:add_inst.i_Ai
+i_Ai[6] => oneBitAdder:gen_adder:6:add_inst.i_Ai
+i_Bi[0] => oneBitAdder:add0.i_Bi
+i_Bi[1] => oneBitAdder:gen_adder:1:add_inst.i_Bi
+i_Bi[2] => oneBitAdder:gen_adder:2:add_inst.i_Bi
+i_Bi[3] => oneBitAdder:gen_adder:3:add_inst.i_Bi
+i_Bi[4] => oneBitAdder:gen_adder:4:add_inst.i_Bi
+i_Bi[5] => oneBitAdder:gen_adder:5:add_inst.i_Bi
+i_Bi[6] => oneBitAdder:gen_adder:6:add_inst.i_Bi
+i_CarryIn => oneBitAdder:add0.i_CarryIn
+o_Sum[0] <= oneBitAdder:add0.o_Sum
+o_Sum[1] <= oneBitAdder:gen_adder:1:add_inst.o_Sum
+o_Sum[2] <= oneBitAdder:gen_adder:2:add_inst.o_Sum
+o_Sum[3] <= oneBitAdder:gen_adder:3:add_inst.o_Sum
+o_Sum[4] <= oneBitAdder:gen_adder:4:add_inst.o_Sum
+o_Sum[5] <= oneBitAdder:gen_adder:5:add_inst.o_Sum
+o_Sum[6] <= oneBitAdder:gen_adder:6:add_inst.o_Sum
+o_CarryOut <= oneBitAdder:gen_adder:6:add_inst.o_CarryOut
+
+
+|adder|topaddnew:inst|Counter:inst5|genericAdder:decrementer|oneBitAdder:add0
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericAdder:decrementer|oneBitAdder:\gen_adder:1:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericAdder:decrementer|oneBitAdder:\gen_adder:2:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericAdder:decrementer|oneBitAdder:\gen_adder:3:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericAdder:decrementer|oneBitAdder:\gen_adder:4:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericAdder:decrementer|oneBitAdder:\gen_adder:5:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericAdder:decrementer|oneBitAdder:\gen_adder:6:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericMux2to1:input_mux
+i_A[0] => oneBitMux2to1:gen_mux:0:mux_inst.i_A
+i_A[1] => oneBitMux2to1:gen_mux:1:mux_inst.i_A
+i_A[2] => oneBitMux2to1:gen_mux:2:mux_inst.i_A
+i_A[3] => oneBitMux2to1:gen_mux:3:mux_inst.i_A
+i_A[4] => oneBitMux2to1:gen_mux:4:mux_inst.i_A
+i_A[5] => oneBitMux2to1:gen_mux:5:mux_inst.i_A
+i_A[6] => oneBitMux2to1:gen_mux:6:mux_inst.i_A
+i_B[0] => oneBitMux2to1:gen_mux:0:mux_inst.i_B
+i_B[1] => oneBitMux2to1:gen_mux:1:mux_inst.i_B
+i_B[2] => oneBitMux2to1:gen_mux:2:mux_inst.i_B
+i_B[3] => oneBitMux2to1:gen_mux:3:mux_inst.i_B
+i_B[4] => oneBitMux2to1:gen_mux:4:mux_inst.i_B
+i_B[5] => oneBitMux2to1:gen_mux:5:mux_inst.i_B
+i_B[6] => oneBitMux2to1:gen_mux:6:mux_inst.i_B
+i_Sel => oneBitMux2to1:gen_mux:6:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:5:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:4:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:3:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:2:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:1:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:0:mux_inst.i_Sel
+o_Out[0] <= oneBitMux2to1:gen_mux:0:mux_inst.o_Out
+o_Out[1] <= oneBitMux2to1:gen_mux:1:mux_inst.o_Out
+o_Out[2] <= oneBitMux2to1:gen_mux:2:mux_inst.o_Out
+o_Out[3] <= oneBitMux2to1:gen_mux:3:mux_inst.o_Out
+o_Out[4] <= oneBitMux2to1:gen_mux:4:mux_inst.o_Out
+o_Out[5] <= oneBitMux2to1:gen_mux:5:mux_inst.o_Out
+o_Out[6] <= oneBitMux2to1:gen_mux:6:mux_inst.o_Out
+
+
+|adder|topaddnew:inst|Counter:inst5|genericMux2to1:input_mux|oneBitMux2to1:\gen_mux:6:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericMux2to1:input_mux|oneBitMux2to1:\gen_mux:5:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericMux2to1:input_mux|oneBitMux2to1:\gen_mux:4:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericMux2to1:input_mux|oneBitMux2to1:\gen_mux:3:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericMux2to1:input_mux|oneBitMux2to1:\gen_mux:2:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericMux2to1:input_mux|oneBitMux2to1:\gen_mux:1:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericMux2to1:input_mux|oneBitMux2to1:\gen_mux:0:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericRegister:count_reg
+i_clock => enARdFF_2:gen_reg:6:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:5:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:4:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:3:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:2:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:1:bit_inst.i_clock
+i_clock => enARdFF_2:gen_reg:0:bit_inst.i_clock
+i_resetBar => enARdFF_2:gen_reg:6:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:5:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:4:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:3:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:2:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:1:bit_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_reg:0:bit_inst.i_resetBar
+i_load => enARdFF_2:gen_reg:6:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:5:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:4:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:3:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:2:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:1:bit_inst.i_enable
+i_load => enARdFF_2:gen_reg:0:bit_inst.i_enable
+i_data[0] => enARdFF_2:gen_reg:0:bit_inst.i_d
+i_data[1] => enARdFF_2:gen_reg:1:bit_inst.i_d
+i_data[2] => enARdFF_2:gen_reg:2:bit_inst.i_d
+i_data[3] => enARdFF_2:gen_reg:3:bit_inst.i_d
+i_data[4] => enARdFF_2:gen_reg:4:bit_inst.i_d
+i_data[5] => enARdFF_2:gen_reg:5:bit_inst.i_d
+i_data[6] => enARdFF_2:gen_reg:6:bit_inst.i_d
+o_q[0] <= enARdFF_2:gen_reg:0:bit_inst.o_q
+o_q[1] <= enARdFF_2:gen_reg:1:bit_inst.o_q
+o_q[2] <= enARdFF_2:gen_reg:2:bit_inst.o_q
+o_q[3] <= enARdFF_2:gen_reg:3:bit_inst.o_q
+o_q[4] <= enARdFF_2:gen_reg:4:bit_inst.o_q
+o_q[5] <= enARdFF_2:gen_reg:5:bit_inst.o_q
+o_q[6] <= enARdFF_2:gen_reg:6:bit_inst.o_q
+
+
+|adder|topaddnew:inst|Counter:inst5|genericRegister:count_reg|enARdFF_2:\gen_reg:6:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericRegister:count_reg|enARdFF_2:\gen_reg:5:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericRegister:count_reg|enARdFF_2:\gen_reg:4:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericRegister:count_reg|enARdFF_2:\gen_reg:3:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericRegister:count_reg|enARdFF_2:\gen_reg:2:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericRegister:count_reg|enARdFF_2:\gen_reg:1:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|Counter:inst5|genericRegister:count_reg|enARdFF_2:\gen_reg:0:bit_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|IncReg:inst13
+clk => reg_q[0].CLK
+clk => reg_q[1].CLK
+clk => reg_q[2].CLK
+clk => reg_q[3].CLK
+clk => reg_q[4].CLK
+clk => reg_q[5].CLK
+clk => reg_q[6].CLK
+resetBar => reg_q.OUTPUTSELECT
+resetBar => reg_q.OUTPUTSELECT
+resetBar => reg_q.OUTPUTSELECT
+resetBar => reg_q.OUTPUTSELECT
+resetBar => reg_q.OUTPUTSELECT
+resetBar => reg_q.OUTPUTSELECT
+resetBar => reg_q.OUTPUTSELECT
+i_loadinc => reg_q.OUTPUTSELECT
+i_loadinc => reg_q.OUTPUTSELECT
+i_loadinc => reg_q.OUTPUTSELECT
+i_loadinc => reg_q.OUTPUTSELECT
+i_loadinc => reg_q.OUTPUTSELECT
+i_loadinc => reg_q.OUTPUTSELECT
+i_loadinc => reg_q.OUTPUTSELECT
+i_inc => reg_q.OUTPUTSELECT
+i_inc => reg_q.OUTPUTSELECT
+i_inc => reg_q.OUTPUTSELECT
+i_inc => reg_q.OUTPUTSELECT
+i_inc => reg_q.OUTPUTSELECT
+i_inc => reg_q.OUTPUTSELECT
+i_inc => reg_q.OUTPUTSELECT
+i_data[0] => reg_q.DATAB
+i_data[1] => reg_q.DATAB
+i_data[2] => reg_q.DATAB
+i_data[3] => reg_q.DATAB
+i_data[4] => reg_q.DATAB
+i_data[5] => reg_q.DATAB
+i_data[6] => reg_q.DATAB
+o_done <= <GND>
+o_REz[0] <= reg_q[0].DB_MAX_OUTPUT_PORT_TYPE
+o_REz[1] <= reg_q[1].DB_MAX_OUTPUT_PORT_TYPE
+o_REz[2] <= reg_q[2].DB_MAX_OUTPUT_PORT_TYPE
+o_REz[3] <= reg_q[3].DB_MAX_OUTPUT_PORT_TYPE
+o_REz[4] <= reg_q[4].DB_MAX_OUTPUT_PORT_TYPE
+o_REz[5] <= reg_q[5].DB_MAX_OUTPUT_PORT_TYPE
+o_REz[6] <= reg_q[6].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|IncReg:inst13|genericAdder:u_inc
+i_Ai[0] => oneBitAdder:add0.i_Ai
+i_Ai[1] => oneBitAdder:gen_adder:1:add_inst.i_Ai
+i_Ai[2] => oneBitAdder:gen_adder:2:add_inst.i_Ai
+i_Ai[3] => oneBitAdder:gen_adder:3:add_inst.i_Ai
+i_Ai[4] => oneBitAdder:gen_adder:4:add_inst.i_Ai
+i_Ai[5] => oneBitAdder:gen_adder:5:add_inst.i_Ai
+i_Ai[6] => oneBitAdder:gen_adder:6:add_inst.i_Ai
+i_Bi[0] => oneBitAdder:add0.i_Bi
+i_Bi[1] => oneBitAdder:gen_adder:1:add_inst.i_Bi
+i_Bi[2] => oneBitAdder:gen_adder:2:add_inst.i_Bi
+i_Bi[3] => oneBitAdder:gen_adder:3:add_inst.i_Bi
+i_Bi[4] => oneBitAdder:gen_adder:4:add_inst.i_Bi
+i_Bi[5] => oneBitAdder:gen_adder:5:add_inst.i_Bi
+i_Bi[6] => oneBitAdder:gen_adder:6:add_inst.i_Bi
+i_CarryIn => oneBitAdder:add0.i_CarryIn
+o_Sum[0] <= oneBitAdder:add0.o_Sum
+o_Sum[1] <= oneBitAdder:gen_adder:1:add_inst.o_Sum
+o_Sum[2] <= oneBitAdder:gen_adder:2:add_inst.o_Sum
+o_Sum[3] <= oneBitAdder:gen_adder:3:add_inst.o_Sum
+o_Sum[4] <= oneBitAdder:gen_adder:4:add_inst.o_Sum
+o_Sum[5] <= oneBitAdder:gen_adder:5:add_inst.o_Sum
+o_Sum[6] <= oneBitAdder:gen_adder:6:add_inst.o_Sum
+o_CarryOut <= oneBitAdder:gen_adder:6:add_inst.o_CarryOut
+
+
+|adder|topaddnew:inst|IncReg:inst13|genericAdder:u_inc|oneBitAdder:add0
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|IncReg:inst13|genericAdder:u_inc|oneBitAdder:\gen_adder:1:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|IncReg:inst13|genericAdder:u_inc|oneBitAdder:\gen_adder:2:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|IncReg:inst13|genericAdder:u_inc|oneBitAdder:\gen_adder:3:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|IncReg:inst13|genericAdder:u_inc|oneBitAdder:\gen_adder:4:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|IncReg:inst13|genericAdder:u_inc|oneBitAdder:\gen_adder:5:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|IncReg:inst13|genericAdder:u_inc|oneBitAdder:\gen_adder:6:add_inst
+i_CarryIn => int_CarryOut3.IN0
+i_CarryIn => int_CarryOut1.IN0
+i_Ai => int_CarryOut3.IN1
+i_Ai => int_CarryOut1.IN1
+i_Bi => int_CarryOut2.IN1
+i_Bi => o_Sum.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericMux2to1:inst4
+i_A[0] => oneBitMux2to1:gen_mux:0:mux_inst.i_A
+i_A[1] => oneBitMux2to1:gen_mux:1:mux_inst.i_A
+i_A[2] => oneBitMux2to1:gen_mux:2:mux_inst.i_A
+i_A[3] => oneBitMux2to1:gen_mux:3:mux_inst.i_A
+i_A[4] => oneBitMux2to1:gen_mux:4:mux_inst.i_A
+i_A[5] => oneBitMux2to1:gen_mux:5:mux_inst.i_A
+i_A[6] => oneBitMux2to1:gen_mux:6:mux_inst.i_A
+i_B[0] => oneBitMux2to1:gen_mux:0:mux_inst.i_B
+i_B[1] => oneBitMux2to1:gen_mux:1:mux_inst.i_B
+i_B[2] => oneBitMux2to1:gen_mux:2:mux_inst.i_B
+i_B[3] => oneBitMux2to1:gen_mux:3:mux_inst.i_B
+i_B[4] => oneBitMux2to1:gen_mux:4:mux_inst.i_B
+i_B[5] => oneBitMux2to1:gen_mux:5:mux_inst.i_B
+i_B[6] => oneBitMux2to1:gen_mux:6:mux_inst.i_B
+i_Sel => oneBitMux2to1:gen_mux:6:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:5:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:4:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:3:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:2:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:1:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:0:mux_inst.i_Sel
+o_Out[0] <= oneBitMux2to1:gen_mux:0:mux_inst.o_Out
+o_Out[1] <= oneBitMux2to1:gen_mux:1:mux_inst.o_Out
+o_Out[2] <= oneBitMux2to1:gen_mux:2:mux_inst.o_Out
+o_Out[3] <= oneBitMux2to1:gen_mux:3:mux_inst.o_Out
+o_Out[4] <= oneBitMux2to1:gen_mux:4:mux_inst.o_Out
+o_Out[5] <= oneBitMux2to1:gen_mux:5:mux_inst.o_Out
+o_Out[6] <= oneBitMux2to1:gen_mux:6:mux_inst.o_Out
+
+
+|adder|topaddnew:inst|genericMux2to1:inst4|oneBitMux2to1:\gen_mux:6:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericMux2to1:inst4|oneBitMux2to1:\gen_mux:5:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericMux2to1:inst4|oneBitMux2to1:\gen_mux:4:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericMux2to1:inst4|oneBitMux2to1:\gen_mux:3:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericMux2to1:inst4|oneBitMux2to1:\gen_mux:2:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericMux2to1:inst4|oneBitMux2to1:\gen_mux:1:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|genericMux2to1:inst4|oneBitMux2to1:\gen_mux:0:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12
+i_clock => enARdFF_2:gen_bits:8:dff_inst.i_clock
+i_clock => enARdFF_2:gen_bits:7:dff_inst.i_clock
+i_clock => enARdFF_2:gen_bits:6:dff_inst.i_clock
+i_clock => enARdFF_2:gen_bits:5:dff_inst.i_clock
+i_clock => enARdFF_2:gen_bits:4:dff_inst.i_clock
+i_clock => enARdFF_2:gen_bits:3:dff_inst.i_clock
+i_clock => enARdFF_2:gen_bits:2:dff_inst.i_clock
+i_clock => enARdFF_2:gen_bits:1:dff_inst.i_clock
+i_clock => enARdFF_2:gen_bits:0:dff_inst.i_clock
+i_resetBar => enARdFF_2:gen_bits:8:dff_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_bits:7:dff_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_bits:6:dff_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_bits:5:dff_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_bits:4:dff_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_bits:3:dff_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_bits:2:dff_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_bits:1:dff_inst.i_resetBar
+i_resetBar => enARdFF_2:gen_bits:0:dff_inst.i_resetBar
+i_load => w_enable.IN0
+i_load => genericMux2to1:mux_inst.i_Sel
+i_shift => w_enable.IN1
+i_data[0] => genericMux2to1:mux_inst.i_B[0]
+i_data[1] => genericMux2to1:mux_inst.i_B[1]
+i_data[2] => genericMux2to1:mux_inst.i_B[2]
+i_data[3] => genericMux2to1:mux_inst.i_B[3]
+i_data[4] => genericMux2to1:mux_inst.i_B[4]
+i_data[5] => genericMux2to1:mux_inst.i_B[5]
+i_data[6] => genericMux2to1:mux_inst.i_B[6]
+i_data[7] => genericMux2to1:mux_inst.i_B[7]
+i_data[8] => genericMux2to1:mux_inst.i_B[8]
+o_q[0] <= enARdFF_2:gen_bits:0:dff_inst.o_q
+o_q[1] <= enARdFF_2:gen_bits:1:dff_inst.o_q
+o_q[2] <= enARdFF_2:gen_bits:2:dff_inst.o_q
+o_q[3] <= enARdFF_2:gen_bits:3:dff_inst.o_q
+o_q[4] <= enARdFF_2:gen_bits:4:dff_inst.o_q
+o_q[5] <= enARdFF_2:gen_bits:5:dff_inst.o_q
+o_q[6] <= enARdFF_2:gen_bits:6:dff_inst.o_q
+o_q[7] <= enARdFF_2:gen_bits:7:dff_inst.o_q
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|genericMux2to1:mux_inst
+i_A[0] => oneBitMux2to1:gen_mux:0:mux_inst.i_A
+i_A[1] => oneBitMux2to1:gen_mux:1:mux_inst.i_A
+i_A[2] => oneBitMux2to1:gen_mux:2:mux_inst.i_A
+i_A[3] => oneBitMux2to1:gen_mux:3:mux_inst.i_A
+i_A[4] => oneBitMux2to1:gen_mux:4:mux_inst.i_A
+i_A[5] => oneBitMux2to1:gen_mux:5:mux_inst.i_A
+i_A[6] => oneBitMux2to1:gen_mux:6:mux_inst.i_A
+i_A[7] => oneBitMux2to1:gen_mux:7:mux_inst.i_A
+i_A[8] => oneBitMux2to1:gen_mux:8:mux_inst.i_A
+i_B[0] => oneBitMux2to1:gen_mux:0:mux_inst.i_B
+i_B[1] => oneBitMux2to1:gen_mux:1:mux_inst.i_B
+i_B[2] => oneBitMux2to1:gen_mux:2:mux_inst.i_B
+i_B[3] => oneBitMux2to1:gen_mux:3:mux_inst.i_B
+i_B[4] => oneBitMux2to1:gen_mux:4:mux_inst.i_B
+i_B[5] => oneBitMux2to1:gen_mux:5:mux_inst.i_B
+i_B[6] => oneBitMux2to1:gen_mux:6:mux_inst.i_B
+i_B[7] => oneBitMux2to1:gen_mux:7:mux_inst.i_B
+i_B[8] => oneBitMux2to1:gen_mux:8:mux_inst.i_B
+i_Sel => oneBitMux2to1:gen_mux:8:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:7:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:6:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:5:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:4:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:3:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:2:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:1:mux_inst.i_Sel
+i_Sel => oneBitMux2to1:gen_mux:0:mux_inst.i_Sel
+o_Out[0] <= oneBitMux2to1:gen_mux:0:mux_inst.o_Out
+o_Out[1] <= oneBitMux2to1:gen_mux:1:mux_inst.o_Out
+o_Out[2] <= oneBitMux2to1:gen_mux:2:mux_inst.o_Out
+o_Out[3] <= oneBitMux2to1:gen_mux:3:mux_inst.o_Out
+o_Out[4] <= oneBitMux2to1:gen_mux:4:mux_inst.o_Out
+o_Out[5] <= oneBitMux2to1:gen_mux:5:mux_inst.o_Out
+o_Out[6] <= oneBitMux2to1:gen_mux:6:mux_inst.o_Out
+o_Out[7] <= oneBitMux2to1:gen_mux:7:mux_inst.o_Out
+o_Out[8] <= oneBitMux2to1:gen_mux:8:mux_inst.o_Out
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|genericMux2to1:mux_inst|oneBitMux2to1:\gen_mux:8:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|genericMux2to1:mux_inst|oneBitMux2to1:\gen_mux:7:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|genericMux2to1:mux_inst|oneBitMux2to1:\gen_mux:6:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|genericMux2to1:mux_inst|oneBitMux2to1:\gen_mux:5:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|genericMux2to1:mux_inst|oneBitMux2to1:\gen_mux:4:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|genericMux2to1:mux_inst|oneBitMux2to1:\gen_mux:3:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|genericMux2to1:mux_inst|oneBitMux2to1:\gen_mux:2:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|genericMux2to1:mux_inst|oneBitMux2to1:\gen_mux:1:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|genericMux2to1:mux_inst|oneBitMux2to1:\gen_mux:0:mux_inst
+i_A => o_Out.IN0
+i_B => o_Out.IN0
+i_Sel => o_Out.IN1
+i_Sel => o_Out.IN1
+o_Out <= o_Out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|enARdFF_2:\gen_bits:8:dff_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|enARdFF_2:\gen_bits:7:dff_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|enARdFF_2:\gen_bits:6:dff_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|enARdFF_2:\gen_bits:5:dff_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|enARdFF_2:\gen_bits:4:dff_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|enARdFF_2:\gen_bits:3:dff_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|enARdFF_2:\gen_bits:2:dff_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|enARdFF_2:\gen_bits:1:dff_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|topaddnew:inst|shiftRegister9:inst12|enARdFF_2:\gen_bits:0:dff_inst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|adder|lpm_constant5:inst7
+result[0] <= lpm_constant:LPM_CONSTANT_component.result[0]
+result[1] <= lpm_constant:LPM_CONSTANT_component.result[1]
+result[2] <= lpm_constant:LPM_CONSTANT_component.result[2]
+result[3] <= lpm_constant:LPM_CONSTANT_component.result[3]
+result[4] <= lpm_constant:LPM_CONSTANT_component.result[4]
+result[5] <= lpm_constant:LPM_CONSTANT_component.result[5]
+result[6] <= lpm_constant:LPM_CONSTANT_component.result[6]
+
+
+|adder|lpm_constant5:inst7|lpm_constant:LPM_CONSTANT_component
+result[0] <= <VCC>
+result[1] <= <VCC>
+result[2] <= <VCC>
+result[3] <= <VCC>
+result[4] <= <VCC>
+result[5] <= <VCC>
+result[6] <= <GND>
+
+
+|adder|lpm_constant7:inst9
+result[0] <= lpm_constant:LPM_CONSTANT_component.result[0]
+result[1] <= lpm_constant:LPM_CONSTANT_component.result[1]
+result[2] <= lpm_constant:LPM_CONSTANT_component.result[2]
+result[3] <= lpm_constant:LPM_CONSTANT_component.result[3]
+result[4] <= lpm_constant:LPM_CONSTANT_component.result[4]
+result[5] <= lpm_constant:LPM_CONSTANT_component.result[5]
+result[6] <= lpm_constant:LPM_CONSTANT_component.result[6]
+
+
+|adder|lpm_constant7:inst9|lpm_constant:LPM_CONSTANT_component
+result[0] <= <GND>
+result[1] <= <GND>
+result[2] <= <GND>
+result[3] <= <GND>
+result[4] <= <GND>
+result[5] <= <GND>
+result[6] <= <VCC>
+
+
+|adder|lpm_constant6:inst8
+result[0] <= lpm_constant:LPM_CONSTANT_component.result[0]
+result[1] <= lpm_constant:LPM_CONSTANT_component.result[1]
+result[2] <= lpm_constant:LPM_CONSTANT_component.result[2]
+result[3] <= lpm_constant:LPM_CONSTANT_component.result[3]
+result[4] <= lpm_constant:LPM_CONSTANT_component.result[4]
+result[5] <= lpm_constant:LPM_CONSTANT_component.result[5]
+result[6] <= lpm_constant:LPM_CONSTANT_component.result[6]
+result[7] <= lpm_constant:LPM_CONSTANT_component.result[7]
+
+
+|adder|lpm_constant6:inst8|lpm_constant:LPM_CONSTANT_component
+result[0] <= <GND>
+result[1] <= <GND>
+result[2] <= <GND>
+result[3] <= <GND>
+result[4] <= <GND>
+result[5] <= <GND>
+result[6] <= <VCC>
+result[7] <= <GND>
+
+
+|adder|lpm_constant8:inst10
+result[0] <= lpm_constant:LPM_CONSTANT_component.result[0]
+result[1] <= lpm_constant:LPM_CONSTANT_component.result[1]
+result[2] <= lpm_constant:LPM_CONSTANT_component.result[2]
+result[3] <= lpm_constant:LPM_CONSTANT_component.result[3]
+result[4] <= lpm_constant:LPM_CONSTANT_component.result[4]
+result[5] <= lpm_constant:LPM_CONSTANT_component.result[5]
+result[6] <= lpm_constant:LPM_CONSTANT_component.result[6]
+result[7] <= lpm_constant:LPM_CONSTANT_component.result[7]
+
+
+|adder|lpm_constant8:inst10|lpm_constant:LPM_CONSTANT_component
+result[0] <= <GND>
+result[1] <= <GND>
+result[2] <= <GND>
+result[3] <= <GND>
+result[4] <= <GND>
+result[5] <= <GND>
+result[6] <= <VCC>
+result[7] <= <GND>
+
+

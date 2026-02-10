@@ -1,0 +1,66 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY Counter IS
+    PORT(
+        i_clock, i_resetBar : IN  STD_LOGIC;
+        i_load              : IN  STD_LOGIC; -- Load the Exponent Difference
+        i_decrement         : IN  STD_LOGIC; -- Control signal to count down
+        i_countIn           : IN  STD_LOGIC_VECTOR(6 downto 0); -- From Small ALU
+        o_zero              : OUT STD_LOGIC; -- Status: '1' when count is 0
+        o_val               : OUT STD_LOGIC_VECTOR(6 downto 0)
+    );
+END Counter;
+
+ARCHITECTURE structural OF Counter IS
+    SIGNAL w_currentCount : STD_LOGIC_VECTOR(6 downto 0);
+    SIGNAL w_nextCount    : STD_LOGIC_VECTOR(6 downto 0);
+    SIGNAL w_decResult    : STD_LOGIC_VECTOR(6 downto 0);
+    SIGNAL w_muxOut       : STD_LOGIC_VECTOR(6 downto 0);
+    SIGNAL w_minusOne     : STD_LOGIC_VECTOR(6 downto 0) := "1111111"; -- 2's comp of 1
+    SIGNAL w_unusedCarry  : STD_LOGIC;
+	 SIGNAL w_valid : STD_LOGIC := '0';
+    COMPONENT genericAdder
+        GENERIC ( n : integer := 7 );
+        PORT(i_Ai, i_Bi : IN STD_LOGIC_VECTOR(n-1 downto 0); i_CarryIn : IN STD_LOGIC; 
+             o_Sum : OUT STD_LOGIC_VECTOR(n-1 downto 0); o_CarryOut : OUT STD_LOGIC);
+    END COMPONENT;
+
+    COMPONENT genericMux2to1
+        GENERIC ( n : integer := 7 );
+        PORT(i_A, i_B : IN STD_LOGIC_VECTOR(n-1 downto 0); i_Sel : IN STD_LOGIC; 
+             o_Out : OUT STD_LOGIC_VECTOR(n-1 downto 0));
+    END COMPONENT;
+
+    COMPONENT genericRegister
+        GENERIC ( n : integer := 7 );
+        PORT(i_clock, i_resetBar, i_load : IN STD_LOGIC; i_data : IN STD_LOGIC_VECTOR(n-1 downto 0); 
+             o_q : OUT STD_LOGIC_VECTOR(n-1 downto 0));
+    END COMPONENT;
+BEGIN
+
+    -- This process creates a "sticky" valid bit
+    -- It turns on when you load, and stays on until you reset
+    PROCESS(i_clock, i_resetBar)
+    BEGIN
+        IF i_resetBar = '0' THEN
+            w_valid <= '0';
+        ELSIF rising_edge(i_clock) THEN
+            IF i_load = '1' THEN
+                w_valid <= '1';
+            END IF;
+        END IF;
+    END PROCESS;
+    decrementer: genericAdder
+        GENERIC MAP ( n => 7 )
+        PORT MAP ( i_Ai => w_currentCount, i_Bi => w_minusOne, i_CarryIn => '0', 
+                   o_Sum => w_decResult, o_CarryOut => w_unusedCarry );
+    input_mux: genericMux2to1
+        GENERIC MAP ( n => 7 )
+        PORT MAP ( i_A => w_decResult, i_B => i_countIn, i_Sel => i_load, o_Out => w_muxOut );
+    count_reg: genericRegister
+        GENERIC MAP ( n => 7 )
+        PORT MAP ( i_clock => i_clock, i_resetBar => i_resetBar, 
+                   i_load => (i_load OR i_decrement), i_data => w_muxOut, o_q => w_currentCount );
+	o_zero <= '1' WHEN (w_currentCount = "0000000" AND w_valid = '1') ELSE '0';    o_val  <= w_currentCount;
+END structural;

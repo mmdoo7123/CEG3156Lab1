@@ -1,0 +1,91 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY ControlPathAdder IS
+    PORT(
+        i_clock     : IN  STD_LOGIC;
+        i_resetBar  : IN  STD_LOGIC;
+        -- Input signals from the drawing
+        i_gt9       : IN  STD_LOGIC; -- Used for S1 logic
+		  i_gt2       : IN  STD_LOGIC; -- Used for S5,S6 logic
+        i_diff_eq_0 : IN  STD_LOGIC; -- Used for S2,s4 logic
+        i_AGTB      : IN  STD_LOGIC; -- A > B comparison for S2, S3, S4
+        -- Control Outputs based on drawing
+        o_LoadExp_Mant_Cin : OUT STD_LOGIC; -- S0 output
+        o_ClearA, o_ClearB : OUT STD_LOGIC; -- S1 outputs
+        loadcounter : OUT STD_LOGIC; -- S2 outputs
+        count, o_ShiftA, o_ShiftB : OUT STD_LOGIC; -- S3 outputs
+        o_Sel_Mux          : OUT STD_LOGIC; -- S4 output
+        o_Loadinc, o_LoadShift: OUT STD_LOGIC; -- S5 output
+        o_Inc,o_Shift         : OUT STD_LOGIC;  -- S6 outputs
+		  o_const_2          : OUT STD_LOGIC_VECTOR(8 DOWNTO 0); -- Value 2 (9 bits)
+        o_const_9          : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);  -- Value 9 (7 bits)
+    -- Debugging State Outputs (NEW)
+        o_S0, o_S1, o_S2, o_S3 : OUT STD_LOGIC;
+        o_S4, o_S5, o_S6, o_S7 : OUT STD_LOGIC
+	 );
+END ControlPathAdder;
+ARCHITECTURE structural OF ControlPathAdder IS
+    -- Using components defined in your previous multiplier
+    COMPONENT enARdFF_2 IS
+        PORT(i_resetBar, i_d, i_enable, i_clock : IN STD_LOGIC; o_q, o_qBar : OUT STD_LOGIC);
+    END COMPONENT;
+
+    COMPONENT enASdFF_2 IS
+        PORT(i_resetBar, i_d, i_enable, i_clock : IN STD_LOGIC; o_q, o_qBar : OUT STD_LOGIC);
+    END COMPONENT;
+
+    SIGNAL s_S0, s_S1, s_S2, s_S3, s_S4, s_S5, s_S6, s_S7 : STD_LOGIC;
+    SIGNAL d_S0, d_S1, d_S2, d_S3, d_S4, d_S5, d_S6, d_S7 : STD_LOGIC;
+    SIGNAL vcc : STD_LOGIC := '1';
+    SIGNAL gnd : STD_LOGIC := '0';
+
+BEGIN
+    d_S0 <= gnd; 
+    d_S1 <= s_S0 AND i_gt9;  
+	 d_S2 <= s_S0 AND NOT(i_diff_eq_0) AND NOT(i_gt9);
+	 d_S3 <= s_S2 OR (s_S3 AND NOT(i_diff_eq_0));
+	 d_S4 <= (s_S0 AND i_diff_eq_0) OR s_S1 OR (s_S3 AND i_diff_eq_0);
+    d_S5 <= s_S4 AND i_gt2;
+    d_S6 <= s_S5;
+    d_S7 <= s_S6 OR (s_S4 AND NOT(i_gt2));
+
+	 -- Proposed Logic for image_fe7644.png:
+
+
+
+    -- 2. Physical Register Instantiation
+    FF0: enASdFF_2 PORT MAP (i_resetBar, d_S0, vcc, i_clock, s_S0, OPEN);
+    FF1: enARdFF_2 PORT MAP (i_resetBar, d_S1, vcc, i_clock, s_S1, OPEN);
+    FF2: enARdFF_2 PORT MAP (i_resetBar, d_S2, vcc, i_clock, s_S2, OPEN);
+    FF3: enARdFF_2 PORT MAP (i_resetBar, d_S3, vcc, i_clock, s_S3, OPEN);
+    FF4: enARdFF_2 PORT MAP (i_resetBar, d_S4, vcc, i_clock, s_S4, OPEN);
+    FF5: enARdFF_2 PORT MAP (i_resetBar, d_S5, vcc, i_clock, s_S5, OPEN);
+    FF6: enARdFF_2 PORT MAP (i_resetBar, d_S6, vcc, i_clock, s_S6, OPEN);
+    FF7: enARdFF_2 PORT MAP (i_resetBar, d_S7, vcc, i_clock, s_S7, OPEN);
+
+    o_const_2 <= "000000010"; 
+    o_const_9 <= "0001001"; 
+	 
+	 -- 4. State Monitor Outputs (Connects internal state signals to ports)
+    o_S0 <= s_S0; o_S1 <= s_S1; o_S2 <= s_S2; o_S3 <= s_S3;
+    o_S4 <= s_S4; o_S5 <= s_S5; o_S6 <= s_S6; o_S7 <= s_S7;
+    o_LoadExp_Mant_Cin <= s_S0;
+    -- S1 logic for Clear
+    o_ClearA <= s_S1 AND NOT(i_AGTB);
+    o_ClearB <= s_S1 AND i_AGTB;
+    -- S2 logic
+    loadcounter <= s_S2;
+	 -- S3 logic
+    count       <= s_S3;
+    o_ShiftA    <= s_S3 AND NOT(i_AGTB);
+    o_ShiftB    <= s_S3 AND i_AGTB;
+    -- S4 logic for Selection
+    o_Sel_Mux   <= s_S4 AND NOT(i_AGTB);
+    -- S5 logic
+    o_Loadinc   <= s_S5;
+    o_LoadShift <= s_S5;
+    -- S6 logic
+    o_Inc       <= s_S6;
+    o_Shift     <= s_S6;
+END structural;

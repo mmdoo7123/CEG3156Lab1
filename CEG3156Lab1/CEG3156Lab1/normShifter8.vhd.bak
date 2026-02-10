@@ -1,0 +1,49 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY normShifter8 IS
+    PORT(
+        i_Data       : IN  STD_LOGIC_VECTOR(7 downto 0);
+        i_ShiftLeft  : IN  STD_LOGIC; -- Control signal to shift left
+        i_ShiftRight : IN  STD_LOGIC; -- Control signal to shift right
+        o_Data       : OUT STD_LOGIC_VECTOR(7 downto 0)
+    );
+END normShifter8;
+
+ARCHITECTURE structural OF normShifter8 IS
+    SIGNAL w_leftShifted, w_rightShifted : STD_LOGIC_VECTOR(7 downto 0);
+    SIGNAL w_intermediate : STD_LOGIC_VECTOR(7 downto 0);
+    
+    COMPONENT eightBitMux2to1
+    PORT(
+        i_A, i_B : IN  STD_LOGIC_VECTOR(7 downto 0);
+        i_Sel    : IN  STD_LOGIC;
+        o_Out    : OUT STD_LOGIC_VECTOR(7 downto 0));
+    END COMPONENT;
+
+BEGIN
+    -- Wiring the possible shifts
+    -- Shift Left: {Data(6..0), '0'}
+    w_leftShifted  <= i_Data(6 downto 0) & '0';
+    -- Shift Right: {'0', Data(7..1)} (Usually for Carry handling)
+    w_rightShifted <= '0' & i_Data(7 downto 1);
+
+    -- MUX 1: Choose between Original Data and Left Shifted Data
+    muxL: eightBitMux2to1
+        PORT MAP (
+            i_A   => i_Data,
+            i_B   => w_leftShifted,
+            i_Sel => i_ShiftLeft,
+            o_Out => w_intermediate
+        );
+
+    -- MUX 2: Choose between the result of Mux1 and Right Shifted Data
+    muxR: eightBitMux2to1
+        PORT MAP (
+            i_A   => w_intermediate,
+            i_B   => w_rightShifted,
+            i_Sel => i_ShiftRight,
+            o_Out => o_Data
+        );
+
+END structural;

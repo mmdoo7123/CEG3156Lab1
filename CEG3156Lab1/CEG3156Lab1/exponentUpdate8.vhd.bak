@@ -1,0 +1,61 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY exponentUpdate8 IS
+    PORT(
+        i_clock, i_resetBar : IN  STD_LOGIC;
+        i_load              : IN  STD_LOGIC;
+        i_Exp               : IN  STD_LOGIC_VECTOR(7 downto 0);
+        i_Increment         : IN  STD_LOGIC; -- Set '1' if shifting significand RIGHT
+        i_Decrement         : IN  STD_LOGIC; -- Set '1' if shifting significand LEFT
+        o_ExpOut            : OUT STD_LOGIC_VECTOR(7 downto 0)
+    );
+END exponentUpdate8;
+
+ARCHITECTURE structural OF exponentUpdate8 :
+    SIGNAL w_operandB      : STD_LOGIC_VECTOR(7 downto 0);
+    SIGNAL w_nextExp       : STD_LOGIC_VECTOR(7 downto 0);
+    SIGNAL w_q, w_qBar     : STD_LOGIC_VECTOR(7 downto 0);
+    SIGNAL w_unusedCarry   : STD_LOGIC;
+
+    COMPONENT eightBitAdder
+    PORT(i_Ai, i_Bi : IN STD_LOGIC_VECTOR(7 downto 0); i_CarryIn : IN STD_LOGIC; o_Sum : OUT STD_LOGIC_VECTOR(7 downto 0); o_CarryOut : OUT STD_LOGIC);
+    END COMPONENT;
+
+    COMPONENT enARdFF_2
+    PORT(i_resetBar, i_d, i_enable, i_clock : IN STD_LOGIC; o_q, o_qBar : OUT STD_LOGIC);
+    END COMPONENT;
+
+BEGIN
+    -- To Increment: Add 00000001
+    -- To Decrement: Add 11111111 (2's complement of 1)
+    -- If neither: Add 00000000
+    w_operandB(0) <= i_Increment OR i_Decrement;
+    w_operandB(7 DOWNTO 1) <= (OTHERS => i_Decrement);
+
+    -- Exponent Adder/Subtractor
+    exp_adder: eightBitAdder
+        PORT MAP (
+            i_Ai       => i_Exp,
+            i_Bi       => w_operandB,
+            i_CarryIn  => '0',
+            o_Sum      => w_nextExp,
+            o_CarryOut => w_unusedCarry
+        );
+
+    -- Synchronous Storage using your provided enARdFF_2
+    gen_reg: FOR i IN 7 DOWNTO 0 GENERATE
+        dff_inst: enARdFF_2
+            PORT MAP (
+                i_resetBar => i_resetBar,
+                i_clock    => i_clock,
+                i_enable   => i_load,
+                i_d        => w_nextExp(i),
+                o_q        => w_q(i),
+                o_qBar     => w_qBar(i)
+            );
+    END GENERATE;
+
+    o_ExpOut <= w_q;
+
+END structural;
